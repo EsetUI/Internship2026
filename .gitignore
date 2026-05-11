@@ -1,0 +1,14 @@
+.vs/
+__pycache__/
+.venv/
+*.pyc
+*.pyo
+*.pyd
+*.obj
+*.o
+*.exe
+*.out
+*.ilk
+*.pdb
+build/
+dist/

@@ -1,246 +1,191 @@
 # 2-Week Practical Programming Internship
 
-A practical internship program for Slovak secondary school students during maturita practice.
+This repository is a complete starter package for a 2-week programming internship for Slovak secondary school students during maturita practice.
 
-The goal of this internship is to introduce students to real software development work in a company environment. Students will learn how programmers cooperate, how code is shared and reviewed, and how basic development tasks are completed using Git, GitHub, Python, and C++.
+It combines:
 
-\---
+* a day-by-day internship plan
+* Python and C++ applied exercise tracks
+* mentor support material
+* Git and GitHub workflow guidance
+* mini-project briefs for the second week
+
+The goal is not only to teach syntax. The goal is to show how real software work is organized: setup, coding, commits, pull requests, code review, debugging, communication, and final presentation.
 
 ## Internship Overview
 
 **Duration:** 2 weeks  
-**Target group:** Slovak secondary school students during maturita practice  
-**Main focus:** Programming basics, company cooperation, Git, GitHub, Python, and C++  
-**Format:** Practical exercises, mentor guidance, teamwork, and a small final project
+**Target group:** secondary school students during practical maturita preparation  
+**Main focus:** Git, GitHub, Python, C++, teamwork, and software delivery  
+**Format:** guided practice, individual tasks, review, and a small final project
 
-This internship is designed for students who already have an interest in programming and want to understand how software development works outside the classroom.
+## Learning Outcomes
 
-\---
+By the end of the internship, each student should be able to:
 
-## Main Goals
+* prepare a working development environment
+* use a code editor and terminal with confidence
+* clone a repository and work in their own branch
+* create commits with clear messages
+* push changes and open a pull request
+* respond to review comments and improve code
+* write and run simple Python programs
+* compile and run basic C++ programs
+* explain their implementation and tradeoffs
+* present a small finished mini-project
 
-By the end of the internship, students should understand:
+## Recommended Tools
 
-* how a programming company organizes work
-* how developers cooperate on shared code
-* how Git and GitHub are used in real projects
-* how to prepare a development environment
-* how to write and run simple Python programs
-* how to compile and run basic C++ programs
-* how to work with branches, commits, and pull requests
-* how to communicate progress and ask technical questions
-* how to present a small software result
+The internship assumes access to:
 
-\---
+* Git
+* GitHub account
+* Visual Studio Code or another editor
+* Python 3.11 or newer
+* a C++ compiler such as MSVC or MinGW g++
+* terminal access in Windows PowerShell or another shell
 
-## Technologies Used
+Setup details are in [docs/setup-guide.md](docs/setup-guide.md).
 
-The internship will focus mainly on:
+If a student already knows Python or C++ basics, skip syntax walkthroughs and use the mixed-track plan in [docs/two-student-track.md](docs/two-student-track.md).
 
-* **Git** - version control
-* **GitHub** - code hosting and cooperation
-* **Python** - scripting, simple tools, problem solving
-* **C++** - compiled programming, basic algorithms, program structure
-* **Visual Studio Code** or another suitable code editor
-* **Command line / terminal** - basic developer workflow
+## Suggested 2-Week Roadmap
 
-\---
+| Day | Focus | Main Output |
+| - | - | - |
+| 1 | Environment and GitHub | Verified setup, first branch, first pull request |
+| 2 | Git workflow and teamwork | Practice with commits, pulls, merges, and review |
+| 3 | Python applied track | Reviewable Python utility or refactor |
+| 4 | Python problem solving | Improved Python tool with validation and review |
+| 5 | C++ applied track | Reviewable C++ utility or refactor |
+| 6 | Debugging and code review | Refactored code and reviewed pull request |
+| 7 | Mini-project planning | Selected project with scope and task breakdown |
+| 8 | Mini-project build | First usable project version |
+| 9 | Testing and polish | Cleaned project with final README |
+| 10 | Demo and retrospective | Short presentation and final review |
 
-## Who This Internship Is For
+Daily plans live in the day folders:
 
-This internship is suitable for students who:
+* [day-01-environment-and-github/readme.md](day-01-environment-and-github/readme.md)
+* [day-02-git-and-teamwork/readme.md](day-02-git-and-teamwork/readme.md)
+* [day-03-python-basics/readme.md](day-03-python-basics/readme.md)
+* [day-04-python-problem-solving/readme.md](day-04-python-problem-solving/readme.md)
+* [day-05-cpp-basics/readme.md](day-05-cpp-basics/readme.md)
+* [day-06-debugging-and-code-review/readme.md](day-06-debugging-and-code-review/readme.md)
+* [day-07-mini-project-planning/readme.md](day-07-mini-project-planning/readme.md)
+* [day-08-mini-project-build/readme.md](day-08-mini-project-build/readme.md)
+* [day-09-testing-and-polish/readme.md](day-09-testing-and-polish/readme.md)
+* [day-10-demo-and-retrospective/readme.md](day-10-demo-and-retrospective/readme.md)
 
-* are completing practical maturita preparation
-* want to experience real programming work
-* are interested in Python, C++, or software development
-* want to learn how teams cooperate on code
-* are considering university studies or a career in IT
+## How To Use This Repository
 
-No advanced programming knowledge is required, but basic logical thinking and motivation to learn are expected.
+### Students
 
-\---
+1. Read the daily plan for the current day.
+2. Complete the assigned task or exercise.
+3. Run the code locally.
+4. Commit your work with a clear message.
+5. Push your branch and open or update a pull request.
+6. Ask for review when you are blocked or finished.
 
-## Expected Outcomes
+### Mentors
 
-At the end of the internship, each student should be able to:
+1. Start each day with a short live demonstration.
+2. Keep tasks small and concrete.
+3. Review code frequently and give practical comments.
+4. Prefer explanation over simply fixing the student's code.
+5. Use the mini-project stage to teach planning, scope control, and finishing work.
 
-* set up a basic development environment
-* clone a GitHub repository
-* create a new branch
-* make changes in code
-* commit and push changes
-* create a pull request
-* respond to review comments
-* run basic Python and C++ programs
-* explain what they worked on
-* present a small final task or mini-project
+Mentor guidance is in [docs/mentor-guide.md](docs/mentor-guide.md).
 
-\---
+## Mixed-Skill Variant
 
-## Week 1 - Introduction and Basic Cooperation
+For a two-student internship with one Python-proficient student and one C++-proficient student:
 
-The first week focuses on preparation, workflow, and simple programming exercises.
+* keep Days 1, 2, 6, 7, 8, 9, and 10 shared
+* let the Python-proficient student own the Python implementation days
+* let the C++-proficient student own the C++ implementation day
+* use cross-review so each student still contributes outside their main language
+* spend time on Git, debugging, requirements, refactoring, and presentation instead of re-explaining syntax
 
-### Topics
+Use [docs/two-student-track.md](docs/two-student-track.md) as the mentor playbook for this setup.
 
-* company introduction
-* developer tools setup
-* basic Git commands
-* GitHub cooperation workflow
-* Python basics
-* C++ basics
-* simple debugging
-* code readability
-* teamwork and communication
-
-\---
-
-## Day 1 - Environment Preparation and GitHub Cooperation
-
-The first day is focused on making sure every student has the necessary tools installed and understands the basic workflow used by software teams.
-
-### Day 1 Goals
-
-Students should finish the first day able to:
-
-* use a code editor
-* open a terminal
-* check installed developer tools
-* log in to GitHub
-* clone a repository
-* create a branch
-* make a simple change
-* commit and push the change
-* create a pull request
-
-### Suggested Day 1 Schedule
-
-|Time|Topic|Description|
-|-|-|-|
-|09:00 - 09:30|Welcome and introduction|Introduction to the company, mentors, internship structure, and expectations.|
-|09:30 - 10:30|Development environment setup|Install or verify Git, Python, C++ compiler, editor, and terminal access.|
-|10:30 - 11:15|GitHub account and repository access|Check GitHub login, repository permissions, and basic repository structure.|
-|11:15 - 12:00|First Git commands|Clone repository, check status, create branch, and understand local vs remote repository.|
-|12:00 - 13:00|Lunch break|Break.|
-|13:00 - 14:00|First code change|Edit a simple Python or C++ file and run it locally.|
-|14:00 - 15:00|Commit, push, and pull request|Commit changes, push branch to GitHub, create a pull request, and request review.|
-|15:00 - 15:30|Review and recap|Discuss common problems, review workflow, and prepare for Day 2.|
-
-### Day 1 Practical Task
-
-Each student will complete a small task:
-
-1. Clone the internship repository.
-2. Create a new branch with their name or assigned task number.
-3. Edit a simple Python or C++ file.
-4. Run the program locally.
-5. Commit the change with a clear commit message.
-6. Push the branch to GitHub.
-7. Create a pull request.
-8. Respond to mentor feedback.
-
-Example branch names:
+## Repository Structure
 
 ```text
-student/jan-novak-day-1
-feature/hello-python
-feature/first-cpp-task
-```
-
-Example commit messages:
-
-```text
-Add first Python introduction task
-Fix C++ hello world output
-Update student profile file
-```
-
-\---
-
-## Week 2 - Practical Mini-Project
-
-The second week focuses on applying the learned workflow to a small practical project.
-
-### Possible Mini-Project Ideas
-
-Students may work on one of the following:
-
-* simple command-line calculator
-* text file analyzer
-* student grade helper
-* small quiz application
-* basic task manager
-* simple C++ console program
-* Python script for data processing
-
-The project should be small enough to finish during the internship but practical enough to demonstrate cooperation, Git workflow, and clean code structure.
-
-\---
-
-## Final Presentation
-
-At the end of the internship, students will briefly present:
-
-* what they worked on
-* what technologies they used
-* what problems they solved
-* how they used GitHub cooperation
-* what they learned during the internship
-
-The presentation should be simple and practical. The goal is not perfection, but the ability to explain the work clearly.
-
-\---
-
-## Repository Structure Example
-
-```text
-internship-program/
+Internship2026/
 ├── README.md
 ├── day-01-environment-and-github/
+├── day-02-git-and-teamwork/
+├── day-03-python-basics/
+├── day-04-python-problem-solving/
+├── day-05-cpp-basics/
+├── day-06-debugging-and-code-review/
+├── day-07-mini-project-planning/
+├── day-08-mini-project-build/
+├── day-09-testing-and-polish/
+├── day-10-demo-and-retrospective/
 ├── python-exercises/
 ├── cpp-exercises/
 ├── mini-projects/
 └── docs/
 ```
 
-\---
+## Exercise Areas
 
-## Recommended Preparation Before Internship
+* [python-exercises/README.md](python-exercises/README.md) contains short Python exercises and extension ideas.
+* [cpp-exercises/README.md](cpp-exercises/README.md) contains short C++ console tasks and challenge ideas.
+* [mini-projects/README.md](mini-projects/README.md) contains project briefs and starter templates.
 
-Students should prepare:
+## Workflow Expectations
 
-* laptop with charger
-* access to email
-* GitHub account
-* basic knowledge of programming concepts
-* willingness to ask questions and work in a team
+Students should practice the full workflow during the internship:
 
-Optional but useful:
+* use branches instead of working directly on the main branch
+* write small, reviewable commits
+* explain changes in pull requests
+* react to feedback and push follow-up commits
+* keep code readable, simple, and tested manually
+
+The most useful reference for daily Git commands is [docs/git-cheatsheet.md](docs/git-cheatsheet.md).
+
+## Assessment
+
+This internship is practical. Students should be evaluated mainly on:
+
+* ability to set up and use tools
+* ability to complete tasks independently after explanation
+* quality and clarity of submitted code
+* use of Git and GitHub workflow
+* communication, responsiveness, and presentation
+
+A simple rubric is available in [docs/evaluation-rubric.md](docs/evaluation-rubric.md).
+
+## Recommended Preparation Before Day 1
+
+Students should have:
+
+* a laptop with charger
+* access to email and GitHub
+* permission to install required tools
+* basic willingness to ask questions and work in a team
+
+Useful but not required:
 
 * basic Python experience
 * basic C++ experience
-* familiarity with command line
-* previous use of Visual Studio Code
+* some terminal familiarity
 
-\---
+## Final Deliverable
 
-## Mentor Notes
+Each student or pair should finish the internship with:
 
-Mentors should focus on:
+* at least one reviewed pull request
+* several completed exercise files
+* one mini-project with a short README
+* a short final presentation or demo
 
-* practical explanations
-* short demonstrations
-* individual support
-* simple tasks with clear goals
-* code review as a learning tool
-* encouraging students to ask questions
-* showing real company habits without overwhelming beginners
+This repository starts from small tasks, but it also supports differentiated tracks. If a student already knows a language, use applied tasks, refactoring, testing, and review instead of repeating syntax lessons.
 
-\---
 
-## Summary
-
-This 2-week internship gives maturita students a practical first experience with software development in a company environment.
-
-Students will not only write code, but also learn how programmers cooperate, communicate, review changes, and use tools such as Git and GitHub in everyday work.
 
