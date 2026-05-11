@@ -22,20 +22,14 @@ Use this variant when:
 
 Recommended approach:
 
-* keep Days 1 and 2 shared for setup and Git workflow
-* make Days 3 and 4 Python-focused implementation days for the Python student
-* make Day 5 a C++-focused implementation day for the C++ student
-* use Day 6 for cross-review, debugging, and refactoring
-* let each student use their stronger language for the mini-project unless there is a strong reason to combine them
+* keep the daily task shared for both students
+* define one acceptance criteria list before coding starts
+* assign one Python implementation and one C++ implementation of the same task
+* compare behavior, output, and edge-case handling at the end of the day
+* use Day 6 for cross-review, debugging, and requirement alignment
+* use one shared mini-project brief with separate Python and C++ versions
 
-What the other student does during a language-focused day:
-
-* review the task requirements
-* run the program and try edge cases
-* give feedback on behavior, readability, and output
-* check pull request quality and commit hygiene
-
-This keeps both students engaged without turning the day into a syntax lesson they do not need.
+This keeps both students engaged on the same problem without turning the day into two unrelated tracks.
 
 ## Suggested Daily Rhythm
 
@@ -56,6 +50,8 @@ Prefer comments like:
 Avoid solving the whole task for the student unless they are completely blocked.
 
 If the student already knows the language basics, avoid explaining variables, loops, or simple functions again. Move directly to input validation, structure, error handling, naming, review comments, and delivery quality.
+
+When both students work on the same task in different languages, review against the same behavior checklist first and the language-specific style second.
 
 ## What To Evaluate
 

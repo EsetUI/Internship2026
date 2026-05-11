@@ -2,6 +2,8 @@
 
 The second week of the internship should end with one small but finished project.
 
+For a two-student group, the recommended model is one shared project brief implemented twice: once in Python and once in C++.
+
 ## Project Selection Rules
 
 Choose a project that:
@@ -25,6 +27,9 @@ Each project should include:
 * a short README with run instructions
 * at least one reviewed pull request
 * a short final demo
+
+If two interns are working together, they should keep the feature set aligned closely enough that the two versions can be compared in the final presentation.
+
 
 ## Suggested Workflow
 

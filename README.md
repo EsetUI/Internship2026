@@ -5,7 +5,7 @@ This repository is a complete starter package for a 2-week programming internshi
 It combines:
 
 * a day-by-day internship plan
-* Python and C++ applied exercise tracks
+* parallel Python and C++ exercise tracks built around the same daily tasks
 * mentor support material
 * Git and GitHub workflow guidance
 * mini-project briefs for the second week
@@ -47,7 +47,7 @@ The internship assumes access to:
 
 Setup details are in [docs/setup-guide.md](docs/setup-guide.md).
 
-If a student already knows Python or C++ basics, skip syntax walkthroughs and use the mixed-track plan in [docs/two-student-track.md](docs/two-student-track.md).
+If the interns already know Python and C++ basics, skip syntax walkthroughs and use the same-task parallel plan in [docs/two-student-track.md](docs/two-student-track.md).
 
 ## Suggested 2-Week Roadmap
 
@@ -55,27 +55,27 @@ If a student already knows Python or C++ basics, skip syntax walkthroughs and us
 | - | - | - |
 | 1 | Environment and GitHub | Verified setup, first branch, first pull request |
 | 2 | Git workflow and teamwork | Practice with commits, pulls, merges, and review |
-| 3 | Python applied track | Reviewable Python utility or refactor |
-| 4 | Python problem solving | Improved Python tool with validation and review |
-| 5 | C++ applied track | Reviewable C++ utility or refactor |
-| 6 | Debugging and code review | Refactored code and reviewed pull request |
-| 7 | Mini-project planning | Selected project with scope and task breakdown |
-| 8 | Mini-project build | First usable project version |
-| 9 | Testing and polish | Cleaned project with final README |
-| 10 | Demo and retrospective | Short presentation and final review |
+| 3 | Shared Task 1 | Temperature converter in Python and C++ |
+| 4 | Shared Task 2 | Number statistics tool in Python and C++ |
+| 5 | Shared Task 3 | Text summary tool in Python and C++ |
+| 6 | Cross-language review | Both implementations reviewed and improved |
+| 7 | Mini-project planning | One shared brief, two language-specific implementations |
+| 8 | Mini-project build | First usable Python and C++ versions |
+| 9 | Testing and polish | Aligned behavior, docs, and demo readiness |
+| 10 | Demo and retrospective | Compare both implementations and explain tradeoffs |
 
 Daily plans live in the day folders:
 
-* [day-01-environment-and-github/readme.md](day-01-environment-and-github/readme.md)
-* [day-02-git-and-teamwork/readme.md](day-02-git-and-teamwork/readme.md)
-* [day-03-python-basics/readme.md](day-03-python-basics/readme.md)
-* [day-04-python-problem-solving/readme.md](day-04-python-problem-solving/readme.md)
-* [day-05-cpp-basics/readme.md](day-05-cpp-basics/readme.md)
-* [day-06-debugging-and-code-review/readme.md](day-06-debugging-and-code-review/readme.md)
-* [day-07-mini-project-planning/readme.md](day-07-mini-project-planning/readme.md)
-* [day-08-mini-project-build/readme.md](day-08-mini-project-build/readme.md)
-* [day-09-testing-and-polish/readme.md](day-09-testing-and-polish/readme.md)
-* [day-10-demo-and-retrospective/readme.md](day-10-demo-and-retrospective/readme.md)
+* [day-01/readme.md](day-01/readme.md)
+* [day-02/readme.md](day-02/readme.md)
+* [day-03/readme.md](day-03/readme.md)
+* [day-04/readme.md](day-04/readme.md)
+* [day-05/readme.md](day-05/readme.md)
+* [day-06/readme.md](day-06/readme.md)
+* [day-07/readme.md](day-07/readme.md)
+* [day-08/readme.md](day-08/readme.md)
+* [day-09/readme.md](day-09/readme.md)
+* [day-10/readme.md](day-10/readme.md)
 
 ## How To Use This Repository
 
@@ -100,13 +100,14 @@ Mentor guidance is in [docs/mentor-guide.md](docs/mentor-guide.md).
 
 ## Mixed-Skill Variant
 
-For a two-student internship with one Python-proficient student and one C++-proficient student:
+For a two-student internship with one Python student and one C++ student:
 
-* keep Days 1, 2, 6, 7, 8, 9, and 10 shared
-* let the Python-proficient student own the Python implementation days
-* let the C++-proficient student own the C++ implementation day
-* use cross-review so each student still contributes outside their main language
-* spend time on Git, debugging, requirements, refactoring, and presentation instead of re-explaining syntax
+* keep the daily problem statement shared
+* define one common requirement set for both interns
+* let one intern implement the task in Python and the other in C++
+* compare outputs, edge cases, and user experience at the end of the day
+* use cross-review to compare behavior and quality rather than reteach syntax
+* use one shared mini-project brief with separate Python and C++ implementations
 
 Use [docs/two-student-track.md](docs/two-student-track.md) as the mentor playbook for this setup.
 
@@ -115,16 +116,16 @@ Use [docs/two-student-track.md](docs/two-student-track.md) as the mentor playboo
 ```text
 Internship2026/
 ├── README.md
-├── day-01-environment-and-github/
-├── day-02-git-and-teamwork/
-├── day-03-python-basics/
-├── day-04-python-problem-solving/
-├── day-05-cpp-basics/
-├── day-06-debugging-and-code-review/
-├── day-07-mini-project-planning/
-├── day-08-mini-project-build/
-├── day-09-testing-and-polish/
-├── day-10-demo-and-retrospective/
+├── day-01/
+├── day-02/
+├── day-03/
+├── day-04/
+├── day-05/
+├── day-06/
+├── day-07/
+├── day-08/
+├── day-09/
+├── day-10/
 ├── python-exercises/
 ├── cpp-exercises/
 ├── mini-projects/
@@ -133,8 +134,8 @@ Internship2026/
 
 ## Exercise Areas
 
-* [python-exercises/README.md](python-exercises/README.md) contains short Python exercises and extension ideas.
-* [cpp-exercises/README.md](cpp-exercises/README.md) contains short C++ console tasks and challenge ideas.
+* [python-exercises/README.md](python-exercises/README.md) contains the Python side of the mirrored daily tasks plus bonus Python challenges.
+* [cpp-exercises/README.md](cpp-exercises/README.md) contains the C++ side of the mirrored daily tasks plus bonus C++ challenges.
 * [mini-projects/README.md](mini-projects/README.md) contains project briefs and starter templates.
 
 ## Workflow Expectations
@@ -182,10 +183,10 @@ Each student or pair should finish the internship with:
 
 * at least one reviewed pull request
 * several completed exercise files
-* one mini-project with a short README
-* a short final presentation or demo
+* one shared mini-project brief implemented in Python and C++
+* a short final presentation or demo comparing both versions
 
-This repository starts from small tasks, but it also supports differentiated tracks. If a student already knows a language, use applied tasks, refactoring, testing, and review instead of repeating syntax lessons.
+This repository is designed to support shared tasks across languages. If a student already knows a language, use the same problem statement, require stronger input handling and code quality, and compare the two implementations at the end of the day.
 
 
 

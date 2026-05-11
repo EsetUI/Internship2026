@@ -2,48 +2,52 @@
 
 This plan is for a small internship group with:
 
-* one student already comfortable with Python
-* one student already comfortable with C++
+* one student working mainly in Python
+* one student working mainly in C++
 
-The goal is to avoid wasting time on syntax they already know and focus instead on delivery skills.
+The goal is for both interns to solve the same daily task, but in different languages.
 
 ## Principles
 
 * do not repeat language basics unless a specific gap appears
+* keep the daily problem statement shared
+* use one acceptance criteria list for both implementations
 * keep Git, pull requests, code review, and communication shared
-* let each student spend most implementation time in their stronger language
-* use cross-review for behavior, edge cases, naming, and usability
+* compare behavior, edge cases, naming, and usability across languages
 * optimize for finished work, not maximum feature count
 
 ## Recommended Day Split
 
-| Day | Python-Proficient Student | C++-Proficient Student | Shared Goal |
+| Day | Shared Task | Python Student | C++ Student |
 | - | - | - | - |
-| 1 | Setup and first branch | Setup and first branch | Environment and GitHub workflow |
-| 2 | Small Git task and PR | Small Git task and PR | Team workflow |
-| 3 | Implement a Python improvement | Review requirements, run the Python tool, give feedback | Applied Python work |
-| 4 | Extend or refactor the Python tool | Review edge cases or prepare mini-project scope | Problem solving and review |
-| 5 | Review C++ task behavior and output | Implement a C++ improvement | Applied C++ work |
-| 6 | Review C++ branch and fix Python review findings | Review Python branch and fix C++ review findings | Debugging and code review |
-| 7 | Choose mini-project in strongest language | Choose mini-project in strongest language | Scope definition |
-| 8 | Build project | Build project | Delivery |
-| 9 | Polish and document project | Polish and document project | Finish quality |
-| 10 | Demo project | Demo project | Presentation |
+| 1 | Environment and GitHub | Setup and first branch | Setup and first branch |
+| 2 | Git workflow and teamwork | Small Git task and PR | Small Git task and PR |
+| 3 | Temperature converter | Build Python version | Build C++ version |
+| 4 | Number statistics tool | Build Python version | Build C++ version |
+| 5 | Text summary tool | Build Python version | Build C++ version |
+| 6 | Cross-language review and fixes | Review C++ branch and fix Python branch | Review Python branch and fix C++ branch |
+| 7 | One shared mini-project brief | Plan Python version from shared spec | Plan C++ version from shared spec |
+| 8 | Same project, different language | Build Python version | Build C++ version |
+| 9 | Same test cases, same polish pass | Align behavior and docs | Align behavior and docs |
+| 10 | Demo and comparison | Demo Python version | Demo C++ version |
 
 ## Recommended Rules
 
-### Language-Focused Days
+### Same Task, Different Language
 
-On a Python-focused or C++-focused day:
+On implementation days:
 
-* the stronger student owns implementation
-* the other student acts as tester, reviewer, and requirements checker
-* both students should still comment on pull requests
+* start from one written task description
+* agree on input, output, and error-handling expectations first
+* let one student implement in Python and the other in C++
+* compare the results against the same checklist at the end of the day
+* keep both pull requests reviewable and separate
 
 ### Review Focus
 
-The non-owner should review:
+Each student should review the other implementation for:
 
+* whether it matches the shared requirements
 * whether the program output is clear
 * whether invalid input is handled well
 * whether the commit and pull request are understandable
@@ -51,17 +55,14 @@ The non-owner should review:
 
 ### Mini-Projects
 
-The simplest model is:
+Use one shared project brief.
 
-* Python student builds a Python project
-* C++ student builds a C++ project
+Recommended model:
 
-If you want one shared project, split responsibilities clearly. For example:
-
-* Python student owns scripting, parsing, and fast iteration
-* C++ student owns performance-sensitive or structured console parts
-
-Only use a shared project if the scope stays small.
+* both students implement the same core features
+* one implementation is in Python and one is in C++
+* both versions should be demoable with the same scenario
+* differences in internal structure are fine, but user-facing behavior should stay comparable
 
 ## Good Tasks For Proficient Students
 
@@ -86,7 +87,8 @@ Avoid spending full sessions on:
 
 This setup is working well when:
 
+* both students work on the same problem each day
 * neither student sits through repeated language basics
 * both students still produce reviewable work every day
 * both students participate in pull requests and review
-* the internship ends with finished projects and clear demos
+* the internship ends with two finished implementations of the same project brief
