@@ -138,6 +138,8 @@ Internship2026/
 * [cpp-exercises/README.md](cpp-exercises/README.md) contains the C++ side of the mirrored daily tasks plus bonus C++ challenges.
 * [mini-projects/README.md](mini-projects/README.md) contains project briefs and starter templates.
 
+The `day-01` to `day-10` folders contain daily instructions. Students should edit code in the actual exercise folders, not copy source files into the day folders.
+
 ## Workflow Expectations
 
 Students should practice the full workflow during the internship:

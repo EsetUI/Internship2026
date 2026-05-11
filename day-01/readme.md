@@ -31,11 +31,18 @@ By the end of Day 1, students should be able to:
 1. Verify the tools from [../docs/setup-guide.md](../docs/setup-guide.md).
 2. Clone the internship repository if needed.
 3. Create a branch such as `student/your-name-day-1`.
-4. Edit one of the starter exercise files.
+4. Edit one of the starter exercise files in place.
 5. Run the program locally.
 6. Commit with a clear message.
 7. Push the branch.
 8. Open a pull request and request mentor review.
+
+For Day 1, students should usually edit one of these files directly in its original folder:
+
+* `python-exercises/01_hello_internship.py`
+* `cpp-exercises/01_hello_internship.cpp`
+
+Do not copy the file into `day-01`. The `day-01` folder contains instructions, while the actual code stays in `python-exercises` or `cpp-exercises`.
 
 ### Deliverables
 
