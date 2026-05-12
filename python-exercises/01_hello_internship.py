@@ -15,6 +15,7 @@ def main() -> None:
     print(build_welcome_message(name))
     print(f"Your focus for the internship is: {favorite_topic}.")
     print("Small steps, clean commits, and clear questions matter.")
+    print("vela stastia")
 
 
 if __name__ == "__main__":
