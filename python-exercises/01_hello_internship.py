@@ -15,7 +15,10 @@ def main() -> None:
     print()
     print(build_welcome_message(name))
     print(f"Your focus for the internship is: {favorite_topic}.")
-    print(f"You have a really good choice of color, {color} is a really nice color.")
+    if color != "yellow":
+        print(f"You have a really good choice of color, {color} is a really nice color.")
+    else:
+        print(f"Really?! Yellow is your favorite color, i hate that one")
     print("Small steps, clean commits, and clear questions matter.")
     print("You got it I believe in you.")
     print("Good luck!")
