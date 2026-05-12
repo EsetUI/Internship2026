@@ -42,6 +42,7 @@ Students should practice:
 
 ### Stand up notes
 
+
 #### Peter Adamec 
 #### Day 1
 
@@ -56,3 +57,8 @@ Students should practice:
 * Learning new git commands
 * Making changes in the same file and creating conflict
 * resolving conflict
+
+#### Matus Macuga
+Day 1 - We got our notebooks and gear, we did BOZP and OPP, also we learned how to create a branch, pull, status, and push.
+Day 2 - We reviewed thing we did on day 1 and also we resolved simple merge conflict.
+
