@@ -21,7 +21,7 @@ def main() -> None:
         print(f"Really?! Yellow is your favorite color, i hate that one")
     print("Small steps, clean commits, and clear questions matter.")
     print("You got it I believe in you.")
-    print("Good luck!")
+    print("Break a leg!")
 
 
 if __name__ == "__main__":
