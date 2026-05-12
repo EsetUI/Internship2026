@@ -18,11 +18,11 @@ Students should practice:
 | - | - | - |
 | 08:30 - 08:45 | Recap | Review the Day 1 workflow and common mistakes. |
 | 08:45 - 9:20 | Branch practice | Create a fresh branch and repeat the workflow. |
-| 09:20 - 9:40 | Pull requests | Read, comment on, and discuss review feedback. |
-| 09:40 - 12:00 | Merge basics | Understand local branch vs remote branch vs `main`. |
-| 12:00 - 12:05 | Conflict demo | Mentor shows a simple merge conflict and how to resolve it. |
-| 12:05 - 13:00 | Teamwork task | Students make a small shared documentation or exercise change. |
-| 13:00 - 15:30 | Recap | Summarize what safe collaboration looks like. |
+| 09:20 - 9:30 | Pull requests | Read, comment on, and discuss review feedback. |
+| 09:30 - 09:50 | Merge basics | Understand local branch vs remote branch vs `main`. |
+| 9:50 - 10:50 | Conflict demo | Mentor shows a simple merge conflict and how to resolve it. |
+| 10:50 - 13:00 | Teamwork task | Students make a small shared documentation or exercise change. |
+| 13:00 - 14:30 | Recap | Summarize what safe collaboration looks like. |
 
 ### Practical Task
 
