@@ -41,3 +41,5 @@ Students should practice:
 * one new branch
 * one pull request update after review
 * at least one review comment on another pull request
+
+### Stand up notes
