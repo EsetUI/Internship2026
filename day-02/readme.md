@@ -41,3 +41,6 @@ Students should practice:
 * at least one review comment on another pull request
 
 ### Stand up notes
+
+Day 1 - We got our notebooks and gear, we did BOZP and OPP, also we learned how to create a branch, pull, status, and push.
+Day 2 - We reviewed thing we did on day 1 and also we resolved simple merge conflict.
