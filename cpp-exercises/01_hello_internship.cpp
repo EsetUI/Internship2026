@@ -28,9 +28,14 @@ int main() {
     }
 
     std::cout << '\n';
-    std::cout << build_welcome_message(name) << '\n';
-    std::cout << "Your focus for the internship is: " << topic << ".\n";
-    std::cout << "Write small changes, test often, and ask clear questions.\n";
-
+    if (age < 18) {
+        std::cout << "You are too young for internship";
+    }
+    else {
+        std::cout << build_welcome_message(name) << '\n';
+        std::cout << "Your focus for the internship is: " << topic << ".\n";
+        std::cout << "Write small changes, test often, and ask clear questions.\n";
+    }
+    
     return 0;
 }
