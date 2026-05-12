@@ -41,3 +41,18 @@ Students should practice:
 * at least one review comment on another pull request
 
 ### Stand up notes
+
+#### Peter Adamec 
+#### Day 1
+
+* Picking up new hardware and setting it up
+* Learning BOZP and OPP than doing tests
+* Practising git and basic comands
+* Creating new branch and saving changes into main branch
+
+#### Day 2
+
+* Saving changes into main branch (again)
+* Learning new git commands
+* Making changes in the same file and creating conflict
+* resolving conflict
