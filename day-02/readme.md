@@ -23,7 +23,6 @@ Students should practice:
 | 10:00 - 11:00 | Lunch | Break. |
 | 11:00 - 12:00 | Conflict demo | Mentor shows a simple merge conflict and how to resolve it. |
 | 12:00 - 13:00 | Teamwork task | Students make a small shared documentation or exercise change. |
-
 | 13:00 - 14:30 | Recap | Summarize what safe collaboration looks like. |
 
 ### Practical Task
