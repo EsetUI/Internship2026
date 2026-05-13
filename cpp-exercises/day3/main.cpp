@@ -1,17 +1,16 @@
 #include <iostream>
 #include <format>
 #include <span>
+#include <string>
 double c_to_f(double);
-void print_output(std::string*, double );
+void print_output(std::span<std::string_view>, double );
 
 int main() {
 	double degrees{};
 	char lang{};
-	std::string slovak[] = { {"Zadajte teplotu na konverciu (celzia na farenheit): "},{"vasa teplota vo farenheitoch je "} };
-	std::string english[] = { {"Enter a temperature to convert (celsius to fahrenheit): "}, {"Your temperature in fahrenheit is "} };
+	std::string_view slovak[] = { {"Zadajte teplotu na konverciu (celzia na farenheit): "},{"vasa teplota vo farenheitoch je {}F"} };
+	std::string_view english[] = { {"Enter a temperature to convert (celsius to fahrenheit): "}, {"Your temperature in fahrenheit is {}F"} };
 	
-
-
 	std::cout << "s = slovak\ne = english\nEnter language: ";
 	std::cin >> lang;
 	switch (lang) {
@@ -24,10 +23,12 @@ int main() {
 
 }
 
-void print_output(std::span<std::string> arr, double degrees) {
-	std::cout << std::format("{}", arr[0]);
+void print_output(std::span<std::string_view> arr, double degrees) {
+	std::cout << arr[0];
 	std::cin >> degrees;
-	std::cout << std::format("{}{}F", arr[1], c_to_f(degrees));
+	
+	double temp = c_to_f(degrees);
+	std::cout << std::vformat(arr[1], std::make_format_args(temp));
 }
 
 double c_to_f(double c) {
