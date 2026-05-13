@@ -1,34 +1,33 @@
 #include <iostream>
 #include <format>
-#include <vector>
+#include <span>
 double c_to_f(double);
+void print_output(std::string*, double );
 
 int main() {
-	const size_t number_of_sentences = 2;
-	double degrees;
-	char lang;
+	double degrees{};
+	char lang{};
 	std::string slovak[] = { {"Zadajte teplotu na konverciu (celzia na farenheit): "},{"vasa teplota vo farenheitoch je "} };
 	std::string english[] = { {"Enter a temperature to convert (celsius to fahrenheit): "}, {"Your temperature in fahrenheit is "} };
 	
-	std::string language[number_of_sentences];
+
 
 	std::cout << "s = slovak\ne = english\nEnter language: ";
 	std::cin >> lang;
-	switch (lang){
+	switch (lang) {
 	case 's':
-		for (int i = 0;i < number_of_sentences;i++) {
-			language[i] = slovak[i];
-		}
+		print_output(slovak, degrees);
 		break;
 	default:
-		for (int i = 0;i < number_of_sentences;i++) {
-			language[i] = english[i];
-		}
+		print_output(english, degrees);
 	}
 
-	std::cout << std::format("{}", language[0]);
+}
+
+void print_output(std::span<std::string> arr, double degrees) {
+	std::cout << std::format("{}", arr[0]);
 	std::cin >> degrees;
-	std::cout << std::format("{}{}F", language[1], c_to_f(degrees));
+	std::cout << std::format("{}{}F", arr[1], c_to_f(degrees));
 }
 
 double c_to_f(double c) {
