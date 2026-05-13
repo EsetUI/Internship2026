@@ -2,8 +2,10 @@
 #include <format>
 #include <span>
 #include <string>
+
 double c_to_f(double);
 void print_output(std::span<std::string_view>, double );
+double request_valid_input(std::string_view);
 
 int main() {
 	double degrees{};
@@ -24,8 +26,7 @@ int main() {
 }
 
 void print_output(std::span<std::string_view> arr, double degrees) {
-	std::cout << arr[0];
-	std::cin >> degrees;
+	degrees = request_valid_input(arr[0]);
 	
 	double temp = c_to_f(degrees);
 	std::cout << std::vformat(arr[1], std::make_format_args(temp));
@@ -33,4 +34,23 @@ void print_output(std::span<std::string_view> arr, double degrees) {
 
 double c_to_f(double c) {
 	return c * 9.0 / 5.0 + 32.0;
+}
+
+double request_valid_input(std::string_view input_msg) {
+	double degrees{};
+	std::string input;
+	while (true) {
+		std::cout << input_msg;
+		if (!(std::cin >> degrees)) {
+			std::cerr << "\nWrong input try a real number\n\n";
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			continue;
+		}
+		else {
+			break;
+		}
+	}
+
+	return degrees;
 }
