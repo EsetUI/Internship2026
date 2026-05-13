@@ -1,7 +1,3 @@
-lang = input(f"What language do you want to use this converter in? (sk or en): ")
-
-
-
 languages = {
     "sk" : {
         'choice': "Bola vybraná slovenčina",
@@ -10,7 +6,9 @@ languages = {
         'inputf': "Zadaj teplotu (F): ",
         'c_to_f': "Teplota premenená do Fahrenheitov je {} F",
         'f_to_c': "Teplota premenená do stupňov Celzia je {} °C",
-        'error': "Prepáč, skús to znova (1 alebo 2)"
+        'error': "Prepáč, skús to znova (1 alebo 2)",
+        'vluerr': "Prepáč, vyskytla sa chyba, skús to znova"
+
     },
 
     "en" : {
@@ -26,37 +24,77 @@ languages = {
 }
 
 
-text = languages[lang]
 
+
+
+while True:
+    lang = input(f"What language do you want to use this converter in? (sk or en): ")
+    try:
+        text = languages[lang]
+        break
+    except KeyError:
+        print("Unsupported language, try again please")
+
+
+
+
+
+
+print("---------------------------------------------------")
 
 print(text['choice'])
 
-
 print("---------------------------------------------------")
 
 
 
-choose = input(text['conversion'])
+
+while True:
+    choose = input(text['conversion'])
+    if choose == "1" or choose == "2":
+        break
+    else:
+        print(text['error'])
+
+
+
+
+
+
 print("---------------------------------------------------")
 
 if choose == "1":
+    while True: 
+        celsius = input(text['inputc'])
+        try:
+            num2 = float(celsius)
+            print("---------------------------------------------------")
+            fahrenheit = num2 * 1.8 + 32
+            print(text['c_to_f'].format(fahrenheit))
+            break
+        except ValueError:
+            print(text['vluerr'])
 
-    celsius = float(input(text['inputc']))
-    fahrenheit = celsius * 1.8 + 32
-    print(text['c_to_f'].format(fahrenheit))
+
+
+
 
 elif choose == "2":
+    while True:
+        fahrenheit = input(text['inputf'])
+        try:
+            num1 = float(fahrenheit)
+            print("---------------------------------------------------")
+            celsius = (num1 - 32) / 1.8
+            print(text['f_to_c'].format(celsius))
+            break
+        except ValueError:
+            print(text['vluerr'])
 
-    fahrenheit = float(input(text['inputf']))
-    celsius = (fahrenheit-32) /1.8
-    print(text['f_to_c'].format(celsius))
 
 
-else:
-     print(text['error'])
-        
-
-
-
-
+# # # # # # # # # # # # # # # # # # # #
+# # # # # # # # SKUSKA # # # # # # # # 
+# # # # # # # TRY EXCEPT # # # # # # # 
+# # # # # # # # # # # # # # # # # # # #
 
