@@ -1,25 +1,28 @@
-name = input("Name: ")
-print(f"Hello {name}!")
-print("This is a program called number stats welcome")
+
+def parse_numbers(text: str)-> list[float]:
+    normalized = text.replace(";", ",")
+    return [float(i.strip()) for i in normalized.split(",") if i.strip()]
+    # return [float(i.strip()) for i in str.split(',;') if i.strip()]         nefunguje
 
 
-
-def parse_numbers()-> list[float]:
-    zoz = []
-
-    numbers = input("Numbers (separated by a coma (, ;)): ")
-
-    for i in numbers.split(","):
-        zoz.append(float(i.strip()))
-
-
-    return zoz
-
-
-def describe_numbers(numbers: list[float]) -> dict[str, float]:
+def num_desc(numbers: list[float]) -> dict[str, float]:
     sumnum = sum(numbers)
+    return {"sum": sumnum}
 
-    print(f"Sum of the numbers is: {sumnum}")
 
-nums = parse_numbers()
-describe_numbers(nums)
+
+def main() -> None:
+    name = input("Name: ")
+    print(f"Hello {name}, welcome!")
+    print("This is a program called number stats")
+
+    numberss = input("Numbers (separated by a coma (, ;)): ")
+
+    numbe = parse_numbers(numberss)
+    endstat = num_desc(numbe)
+
+    print(f"Sum of the numbers used is: {endstat["sum"]}")
+
+
+if __name__ == "__main__":
+    main()
