@@ -4,14 +4,15 @@
 #include <string>
 #include <format>
 
-std::vector<double> handle_input();
+std::vector<double> handle_console_input();
+std::vector<double> parse_numbers(const std::string& raw_input);
 void print_v(const std::vector<double>&);
 void print_stats(const std::vector<double>&);
 double get_sum(const std::vector<double>&);
 
 
 int main() {
-	std::vector<double> nums = handle_input();
+	std::vector<double> nums = handle_console_input();
 
 	print_stats(nums);
 }
@@ -48,10 +49,16 @@ double get_sum(const std::vector<double>& nums) {
 
 
 
-std::vector<double> handle_input() {
+std::vector<double> handle_console_input() {
 	std::string raw_input;
 	std::cout << "Numbers: ";
 	std::getline(std::cin, raw_input);
+	std::vector<double> output = parse_numbers(raw_input);
+
+	if (output.empty()) return handle_console_input();
+	return output;
+}
+std::vector<double> parse_numbers(const std::string &raw_input) {
 	std::stringstream input(raw_input);
 	std::vector<double> output;
 	double temp{};
@@ -71,7 +78,7 @@ std::vector<double> handle_input() {
 			}
 			else {
 				std::cout << "\nInvalid input\n\n";
-				return handle_input();
+				return {};
 			}
 		}
 	}
