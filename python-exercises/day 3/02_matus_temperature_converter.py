@@ -7,7 +7,7 @@ languages = {
         'x_to_f': "Teplota premenená na fahrenheity je {} F",
         'x_to_c': "Teplota premenená na stupne Celzia je {} °C",
         'x_to_k': "Teplota zmenená na kelviny je {} K",
-        'error': "Prepáč, skús to znova (1 alebo 2)",
+        'error': "Prepáč, skús to znova (1 - 6)",
         'vluerr': "Prepáč, vyskytla sa chyba, skús to znova"
 
     },
@@ -20,7 +20,7 @@ languages = {
         'x_to_f': "The temperature converted to F is {} F",
         'x_to_c': "The temperature converted to °C is {} °C",
         'x_to_k': "The temperature converted to K is {} K",
-        'error': "Sorry, try again (1 or 2)",
+        'error': "Sorry, try again (1 - 6)",
         'vluerr': "Sorry, an error occured, try again"
 
     }
