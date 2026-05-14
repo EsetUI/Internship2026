@@ -13,7 +13,7 @@ template<typename T>
 T request_valid_input(std::string_view,std::string_view error_msg);
 
 template<typename T, typename _T>
-T request_valid_input(std::string_view , std::string_view , _T);
+T request_valid_input(std::string_view , std::string_view ,const _T&);
 
 
 int main() {
@@ -114,7 +114,7 @@ T request_valid_input(std::string_view input_msg, std::string_view error_msg) {
 }
 
 template<typename T, typename _T>
-T request_valid_input(std::string_view input_msg, std::string_view error_msg, _T input_options) {
+T request_valid_input(std::string_view input_msg, std::string_view error_msg,const _T &input_options) {
 	T value{};
 	std::string input;
 	while (true) {
