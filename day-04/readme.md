@@ -49,3 +49,12 @@ Both implementations should:
 * one Python implementation and one C++ implementation of the same task
 * review feedback addressed in both branches
 
+###Stand up notes
+
+Peter Adamec
+day 3:
+*make simple temperature convertor to practice and learn how handle multiple languages and invalid input
+
+day 4:
+*make a number statistics program to practice fast and effective file handling 
+*learn about Command line arguments
