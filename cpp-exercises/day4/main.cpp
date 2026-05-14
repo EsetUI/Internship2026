@@ -24,8 +24,14 @@ void print_v(const std::vector<double> &vec) {
 }
 
 void print_stats(const std::vector<double> &nums) {
-	std::cout << "numbers: ";
-	print_v(nums);
+	char choice{};
+	std::cout << "Show numbers before statistics?(y,n): ";
+	std::cin >> choice;
+	if (choice == 'y') {
+		std::cout << "numbers: ";
+		print_v(nums);
+	}
+	
 	
 
 	std::cout << std::format("Sum: {}\n", get_sum(nums));
