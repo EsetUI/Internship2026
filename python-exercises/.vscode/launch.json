@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "name": "Python Debugger: Python File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "args": ["C:\\GitRoot\\Internship2026\\data\\random_output.txt"],
+        }
+    ]
+}
