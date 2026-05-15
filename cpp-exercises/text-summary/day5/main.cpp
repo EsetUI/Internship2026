@@ -15,6 +15,7 @@ std::string remove_punctuation_copy(std::string);
 size_t get_unique_word_count( std::string);
 void turn_lowercase(std::string&);
 size_t get_scentence_count(const std::string& input);
+void print_highlighted_letter(std::string_view);
 
 
 
@@ -28,6 +29,22 @@ int main(int argc, char* argv[]) {
 	}
 
 	print_text_info(input);
+}
+
+
+void print_highlighted_letter(std::string_view input) {
+	std::cout << "Enter a letter to highlight: ";
+	char target{};
+	std::cin >> target;
+
+	for (auto c : input) {
+		if (c == target) {
+			std::cout << std::format("\033[32m{}\033[0m", c);
+		}
+		else {
+			std::cout << c;
+		}
+	}
 }
 
 std::string get_file_input(const std::string &file_name) {
@@ -54,6 +71,7 @@ void print_text_info(const std::string &input) {
 	std::cout << std::format("Word count:        {}\n", get_word_count(no_punct_input));
 	std::cout << std::format("Unique word count: {}\n", get_unique_word_count(no_punct_input));
 	std::cout << std::format("Scentences:        {}\n", get_scentence_count(input));
+	print_highlighted_letter(input);
 }
 
 size_t get_word_count(const std::string & no_punct_input) {
