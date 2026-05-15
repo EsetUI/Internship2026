@@ -1,17 +1,28 @@
-def random_word_count(text:str) -> dict:                                                        # counter roznych slov 
+
+import string
+
+
+def clean_word(word: str) -> str:                                                                # cisti slovo  
+    return word.strip(string.punctuation).lower()
+
+
+def random_word_count(text: str) -> dict:                                                        # counter roznych slov 
     words = {}
-    for word in text.lower().split():
+    for word in text.split():
+        word = clean_word(word)
+        if word == "":
+            continue
         if word in words:
             words[word] += 1
         else:
             words[word] = 1
 
     return words
+                                                           # najde nejcastejsi pismeno
 
 
-
-def vowel_counter(text:str) -> int:                                                             # counter samohlasok 
-    vow = ["a","e","i","y","o","u"]
+def vowel_counter(text: str) -> int:                                                             # counter samohlasok 
+    vow = ["a","e","i","y","o","u","A","E","I","Y","O","U"]
     vowcounter = 0
     for symbol in text:
         if symbol in vow:
@@ -19,20 +30,18 @@ def vowel_counter(text:str) -> int:                                             
     return vowcounter
 
 
-        
-def nospace(text:str) -> int:                                                                   # counter medzier
+
+def nospace(text: str) -> int:                                                                   # counter medzier
     space = text.count(" ")
     return space
 
 
 
-def letter_counter(text:str) -> int:                                                            # counter pismen
+def letter_counter(text: str) -> int:                                                            # counter pismen
     lett_count = 0
     for letter in text:
-        if letter != " ":
-            lett_count +=1
-        else:
-            lett_count += 0
+        if letter not in string.whitespace:
+            lett_count += 1
     return lett_count
 
 
@@ -46,7 +55,7 @@ def sentence_counter(text: str) -> int:                                         
 
 
 
-def numcount(text:str) -> int:                                                                  # counter cisiel
+def numcount(text: str) -> int:                                                                  # counter cisiel
     numcounter = 0
     for num in text:
         if num in "0123456789":
@@ -55,8 +64,8 @@ def numcount(text:str) -> int:                                                  
 
 
 
-def count(text:str) -> int:                                                                     # counter slov
-    return len(text.split())
+def count(text: str) -> int:                                                                     # counter slov
+    return len([clean_word(w) for w in text.split() if clean_word(w) != ""])
 
 
 
@@ -82,7 +91,6 @@ def main() -> None:
         else:
             text = input("Type some text here: ")
 
-
         text = text.replace("\n", " ").replace("\t", " ")
 
         if not text.strip():
@@ -91,20 +99,41 @@ def main() -> None:
         break
 
 
-    print(f"The count of characters in your text is: {len(text)}")                              # character count
-    print(f"The count of letters in your text is: {letter_counter(text)}")                      # letter count
-    print(f"The count of spacebars in your text is: {nospace(text)}")                           # spacebar count
-    print(f"The count of words in your text is: {count(text)}")                                 # word count
-    print(f"The count of vowels in your text is: {vowel_counter(text)}")                        # vowel count
-    print(f"The count of numbers is: {numcount(text)}")                                         # number count  
-    print(f"The count of sentences in your text is: {sentence_counter(text)}")                  # sentence counter
-    print("Unique words:")                                                                      # unique word count
+    print(f"The count of characters in your text is: {len(text)}")
+    print(f"The count of letters in your text is: {letter_counter(text)}")
+    print(f"The count of spacebars in your text is: {nospace(text)}")
+    print(f"The count of words in your text is: {count(text)}")
+    print(f"The count of vowels in your text is: {vowel_counter(text)}")
+    print(f"The count of numbers is: {numcount(text)}")
+    print(f"The count of sentences in your text is: {sentence_counter(text)}")
+    print("Unique words:")
+    
     unique_words = random_word_count(text)
     for word, cnt in unique_words.items():
         print(f"{word}: {cnt}")
 
+    magic_letter = input("Enter a letter to highlight in green: ")                                         # zafarbi pismeno
+    
+
+    if magic_letter:                                    
+        target = magic_letter[0]
+        colored_text = ""
+        
+        for char in text:
+
+            if char.lower() == target.lower():
+                colored_text += f"\033[32m{char}\033[0m"
+            else:
+                colored_text += char
+                
+        print("Your highlighted text is:")
+        print(colored_text)
+
 
 if __name__ == '__main__':
     main()
+
+
+
 
 
