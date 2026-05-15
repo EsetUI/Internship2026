@@ -49,12 +49,23 @@ Both implementations should:
 * one Python implementation and one C++ implementation of the same task
 * review feedback addressed in both branches
 
-###Stand up notes
+### Stand up notes
 
 Peter Adamec
+
 day 3:
-*make simple temperature convertor to practice and learn how handle multiple languages and invalid input
+* make simple temperature convertor to practice and learn how handle multiple languages and invalid input
 
 day 4:
-*make a number statistics program to practice fast and effective file handling 
-*learn about Command line arguments
+* make a number statistics program to practice fast and effective file handling 
+* learn about Command line arguments
+
+Matus Macuga
+
+day - 3
+
+* practiced on a shared task called temperature converter validating input and error cases separating logic into clear functions
+
+day - 4
+
+* also a shared task called number statistics improved the maintainability without changing the code practiced parsing and validating input

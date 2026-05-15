@@ -68,25 +68,26 @@ def main() -> None:
         choice = input("Do you want to load text from file? (yes/no): ").lower()
 
         if choice == "yes":
-            filename = input("Enter file name (folder/example.txt): ")
+            filename = input("Enter the filename: ")
 
             try:
                 with open(filename, "r", encoding="utf-8") as sub:
                     text = sub.read()
-                print("File loaded successfully!")
-                print("DEBUG:", text)
+                print("File was loaded")
 
             except FileNotFoundError:
                 print("File not found, try again.")
                 continue
- 
+
         else:
             text = input("Type some text here: ")
+
+
+        text = text.replace("\n", " ").replace("\t", " ")
 
         if not text.strip():
             print("Error, no input was entered. Try again please: ")
             continue
-
         break
 
 
@@ -105,3 +106,5 @@ def main() -> None:
 
 if __name__ == '__main__':
     main()
+
+
