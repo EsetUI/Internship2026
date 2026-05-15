@@ -7,7 +7,7 @@ std::string get_console_input(std::string_view);
 void print_text_info(const std::string&);
 size_t get_vowel_count(const std::string&);
 size_t get_word_count(const std::string&);
-std::string separate_copy(std::string);
+std::string remove_punctuation_copy(std::string);
 
 
 int main() {
@@ -17,14 +17,13 @@ int main() {
 
 
 void print_text_info(const std::string &input) {
-	
 	std::cout << std::format("Text size: {}\n", input.length());
 	std::cout << std::format("Vowel count: {}\n", get_vowel_count(input));
 	std::cout << std::format("Word count: {}\n", get_word_count(input));
 }
 
 size_t get_word_count(const std::string &raw_input) {
-	std::istringstream input(separate_copy(raw_input));
+	std::istringstream input(remove_punctuation_copy(raw_input));
 	std::string word;
 	size_t word_count{};
 	while (input >> word) {
@@ -33,11 +32,11 @@ size_t get_word_count(const std::string &raw_input) {
 	return word_count;
 }
 
-std::string separate_copy(std::string input) {
+std::string remove_punctuation_copy(std::string input) {
 
-	for (int i = 0; i < input.length();i++) {
-		if (input[i]=='.'|| input[i] == ',' || input[i] == ';' || input[i] == ':') {
-			input[i] = ' ';
+	for (char& c : input) {
+		if (std::ispunct(c)) {
+			c = ' ';
 		}
 	}
 	return input;
