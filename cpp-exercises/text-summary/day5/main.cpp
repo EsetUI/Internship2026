@@ -4,8 +4,10 @@
 #include <sstream>
 #include <cctype>
 #include <map>
+#include <fstream>
 
 std::string get_console_input(std::string_view);
+std::string get_file_input(const std::string& file_name);
 void print_text_info(const std::string&);
 size_t get_vowel_count(const std::string&);
 size_t get_word_count(const std::string&);
@@ -14,11 +16,35 @@ size_t get_unique_word_count( std::string);
 void turn_lowercase(std::string&);
 size_t get_scentence_count(const std::string& input);
 
-int main() {
-	std::string input = get_console_input("Enter text: ");
+
+
+int main(int argc, char* argv[]) {
+	std::string input;
+	if (argc > 1) {
+		input = get_file_input(argv[1]);
+	}
+	else {
+		input = get_console_input("Enter text: ");
+	}
+
 	print_text_info(input);
 }
 
+std::string get_file_input(const std::string &file_name) {
+	std::ifstream fin(file_name);
+	if (!fin.is_open()) {
+		std::cerr << std::format("\nFile '{}' failed to open\n\n", file_name);
+		exit(-1);
+	}
+	
+	std::string raw_input;
+	fin.seekg(0, std::ios_base::end);
+	raw_input.resize(fin.tellg());
+	fin.seekg(0, std::ios_base::beg);
+	fin.read(raw_input.data(), raw_input.size());
+
+	return raw_input;
+}
 
 void print_text_info(const std::string &input) {
 	std::cout << std::format("Text size:         {}\n", input.length());
