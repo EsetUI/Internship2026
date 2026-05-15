@@ -18,7 +18,6 @@ def random_word_count(text: str) -> dict:                                       
             words[word] = 1
 
     return words
-                                                           # najde nejcastejsi pismeno
 
 
 def vowel_counter(text: str) -> int:                                                             # counter samohlasok 
@@ -112,7 +111,7 @@ def main() -> None:
     for word, cnt in unique_words.items():
         print(f"{word}: {cnt}")
 
-    magic_letter = input("Enter a letter to highlight in green: ")                                         # zafarbi pismeno
+    magic_letter = input("Enter a letter to highlight in green: ")                                         # zafarbi piseno
     
 
     if magic_letter:                                    
