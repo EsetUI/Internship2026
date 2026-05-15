@@ -79,7 +79,7 @@ def main() -> None:
             except FileNotFoundError:
                 print("File not found, try again.")
                 continue
-
+ 
         else:
             text = input("Type some text here: ")
 
