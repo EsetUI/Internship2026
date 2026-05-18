@@ -6,7 +6,7 @@ def clean_word(word: str) -> str:                                               
     return word.strip(string.punctuation).lower()
 
 
-def random_word_count(text: str) -> dict:                                                        # counter roznych slov 
+def unique_word_count(text: str) -> dict:                                                        # counter roznych slov 
     words = {}
     for word in text.split():
         word = clean_word(word)
@@ -107,7 +107,7 @@ def main() -> None:
     print(f"The count of sentences in your text is: {sentence_counter(text)}")
     print("Unique words:")
     
-    unique_words = random_word_count(text)
+    unique_words = unique_word_count(text)
     for word, cnt in unique_words.items():
         print(f"{word}: {cnt}")
 

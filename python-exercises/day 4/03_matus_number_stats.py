@@ -24,8 +24,6 @@ def main() -> None:
     args = parser.parse_args()
 
     print(args.filename)
-    name = input("Name: ")
-    print(f"Hello {name}, welcome!")
     print("This is a program called number stats")
     print("ENJOY")
 
