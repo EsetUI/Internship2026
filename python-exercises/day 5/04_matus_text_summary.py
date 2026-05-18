@@ -21,20 +21,16 @@ def unique_word_count(text: str) -> dict:                                       
 
 
 def vowel_counter(text: str) -> int:                                                             # counter samohlasok 
-    vow = ["a","e","i","y","o","u","A","E","I","Y","O","U"]
+    vow = set("aeiouyAEIOUY")
     vowcounter = 0
     for symbol in text:
         if symbol in vow:
             vowcounter += 1
     return vowcounter
 
-
-
 def nospace(text: str) -> int:                                                                   # counter medzier
     space = text.count(" ")
     return space
-
-
 
 def letter_counter(text: str) -> int:                                                            # counter pismen
     lett_count = 0
@@ -43,8 +39,6 @@ def letter_counter(text: str) -> int:                                           
             lett_count += 1
     return lett_count
 
-
-
 def sentence_counter(text: str) -> int:                                                         # counter viet
     sentences = 0
     for char in text:
@@ -52,16 +46,12 @@ def sentence_counter(text: str) -> int:                                         
             sentences += 1
     return sentences
 
-
-
 def numcount(text: str) -> int:                                                                  # counter cisiel
     numcounter = 0
     for num in text:
         if num in "0123456789":
             numcounter += 1
     return numcounter
-
-
 
 def count(text: str) -> int:                                                                     # counter slov
     return len([clean_word(w) for w in text.split() if clean_word(w) != ""])

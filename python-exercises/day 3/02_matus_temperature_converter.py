@@ -24,6 +24,7 @@ languages = {
         'x_to_k': "Teplota premenená na Kelviny je {} K",
 
         'error': "Prepáč, skús to znova",
+        'errorsame': "Prepáč, nemôžeš konvertovať do rovnakej jednotky",
         'vluerr': "Prepáč, zadaj číslo"
     },
 
@@ -51,6 +52,7 @@ languages = {
         'x_to_k': "The temperature converted to K is {} K",
 
         'error': "Sorry, try again",
+        'errorsame': "Sorry, you cannot convert to the same unit",
         'vluerr': "Sorry, enter a number"
     }
 }
@@ -72,7 +74,6 @@ print(text['choice'])
 print("---------------------------------------------------")
 
 
-
 while True:
     from_unit = input(text['from_unit'])
 
@@ -81,9 +82,7 @@ while True:
 
     print(text['error'])
 
-
 print("---------------------------------------------------")
-
 
 while True:
     to_unit = input(text['to_unit'])
@@ -93,33 +92,25 @@ while True:
 
     print(text['error'])
 
-
 print("---------------------------------------------------")
-
 
 def f_to_c(fahrenheit):
     return (fahrenheit - 32) / (9 / 5)
 
-
 def f_to_k(fahrenheit):
     return (5 / 9) * (fahrenheit - 32) + 273.15
-
 
 def k_to_f(kelvin):
     return (9 / 5) * (kelvin - 273.15) + 32
 
-
 def k_to_c(kelvin):
     return kelvin - 273.15
-
 
 def c_to_f(celsius):
     return celsius * (9 / 5) + 32
 
-
 def c_to_k(celsius):
     return celsius + 273.15
-
 
 def convert_temperature(input_text, output_text, convert_func):
 
@@ -129,12 +120,9 @@ def convert_temperature(input_text, output_text, convert_func):
 
         try:
             number = float(value)
-
             result = convert_func(number)
-
             print("---------------------------------------------------")
             print(output_text.format(result))
-
             break
 
         except ValueError:
@@ -184,4 +172,4 @@ elif from_unit == "3" and to_unit == "2":
     )
 
 else:
-    print(text['error'])
+    print(text['errorsame'])
