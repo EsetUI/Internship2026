@@ -59,8 +59,6 @@ def count(text: str) -> int:                                                    
 
 
 def main() -> None:                                                 
-    print("Hello, welcome to this program called text summary!")
-    print("ENJOY!")
 
     while True:
         choice = input("Do you want to load text from file? (yes/no): ").lower()
