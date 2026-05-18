@@ -1,188 +1,178 @@
-languages = {
-    "sk" : {
-        'choice': "Bola vybraná slovenčina",
-        'conversion': "Chceš premeniť jednotky ZO stupňov Celzia na stupne fahrenheit (1 (f na c), 2 (f na k), 3 (k na f), 4 (k na c), 5 (c na f), 6 (c na k): ",
-        'inputc': "Zadaj teplou (°C): ",
-        'inputf': "Zadaj teplotu (F): ",
-        'x_to_f': "Teplota premenená na fahrenheity je {} F",
-        'x_to_c': "Teplota premenená na stupne Celzia je {} °C",
-        'x_to_k': "Teplota zmenená na kelviny je {} K",
-        'error': "Prepáč, skús to znova (1 - 6)",
-        'vluerr': "Prepáč, vyskytla sa chyba, skús to znova"
 
+languages = {
+    "sk": {
+        'choice': "Bola vybraná slovenčina",
+
+        'from_unit':
+        "Zvoľ jednotku Z KTOREJ chceš konvertovať:\n"
+        "C - Celsius\n"
+        "K - Kelvin\n"
+        "F - Fahrenheit\n",
+
+        'to_unit':
+        "Zvoľ jednotku NA KTORÚ chceš konvertovať:\n"
+        "C - Celsius\n"
+        "K - Kelvin\n"
+        "F - Fahrenheit\n",
+
+        'inputc': "Zadaj teplotu (°C): ",
+        'inputf': "Zadaj teplotu (F): ",
+        'inputk': "Zadaj teplotu (K): ",
+
+        'x_to_f': "Teplota premenená na Fahrenheity je {} F",
+        'x_to_c': "Teplota premenená na Celsius je {} °C",
+        'x_to_k': "Teplota premenená na Kelviny je {} K",
+
+        'error': "Prepáč, skús to znova",
+        'errorsame': "Prepáč, nemôžeš konvertovať do rovnakej jednotky",
+        'vluerr': "Prepáč, zadaj číslo"
     },
 
-    "en" : {
+    "en": {
         'choice': "English was chosen",
-        'conversion': "Do you want to convert FROM celsius or fahrenheit (1 (f to c), 2 (f to k), 3 (k to f), 4 (k to c), 5 (c to f), 6 (c to k): ",
-        'inputc': "The temperature is (°C): ",
-        'inputf': "The temperature is (F): ",
+
+        'from_unit':
+        "Choose the unit you want to convert FROM:\n"
+        "C - Celsius\n"
+        "K - Kelvin\n"
+        "F - Fahrenheit\n",
+
+        'to_unit':
+        "Choose the unit you want to convert TO:\n"
+        "C - Celsius\n"
+        "K - Kelvin\n"
+        "F - Fahrenheit\n",
+
+        'inputc': "Enter temperature (°C): ",
+        'inputf': "Enter temperature (F): ",
+        'inputk': "Enter temperature (K): ",
+
         'x_to_f': "The temperature converted to F is {} F",
         'x_to_c': "The temperature converted to °C is {} °C",
         'x_to_k': "The temperature converted to K is {} K",
-        'error': "Sorry, try again (1 - 6)",
-        'vluerr': "Sorry, an error occured, try again"
 
+        'error': "Sorry, try again",
+        'errorsame': "Sorry, you cannot convert to the same unit",
+        'vluerr': "Sorry, enter a number"
     }
 }
 
 
-
-
-
-
 while True:
-    lang = input(f"What language do you want to use this converter in? (sk or en): ")
+    lang = input("Choose a language (sk/en): ").lower()
+
     try:
         text = languages[lang]
         break
+
     except KeyError:
-        print("Unsupported language, try again please")
-
-
-
-
+        print("Unsupported language")
 
 
 print("---------------------------------------------------")
-
 print(text['choice'])
-
-print("---------------------------------------------------")  
-
-
+print("---------------------------------------------------")
 
 
 while True:
-    choose = input(text['conversion'])
-    if choose in ["1","2","3","4","5","6"]:
+    from_unit = input(text['from_unit']).upper()
+
+    if from_unit in ["C", "K", "F"]:
         break
-    else:
-        print(text['error'])
 
+    print(text['error'])
 
+print("---------------------------------------------------")
 
+while True:
+    to_unit = input(text['to_unit']).upper()
+
+    if to_unit in ["C", "K", "F"]:
+        break
+
+    print(text['error'])
+
+print("---------------------------------------------------")
 
 def f_to_c(fahrenheit):
-    return (fahrenheit - 32) /(9/5)
-
+    return (fahrenheit - 32) / (9 / 5)
 
 def f_to_k(fahrenheit):
-    return (5/9)*(fahrenheit -32) +273.15
+    return (5 / 9) * (fahrenheit - 32) + 273.15
 
 def k_to_f(kelvin):
-    return (9/5)*(kelvin-273.15) + 32
+    return (9 / 5) * (kelvin - 273.15) + 32
 
 def k_to_c(kelvin):
     return kelvin - 273.15
 
 def c_to_f(celsius):
-    return celsius * (9/5) + 32
+    return celsius * (9 / 5) + 32
 
 def c_to_k(celsius):
     return celsius + 273.15
 
+def convert_temperature(input_text, output_text, convert_func):
 
-
-
-
-print("---------------------------------------------------")
-
-if choose == "1":
-    while True: 
-        fahrenheit = input(text['inputc'])
-        try:
-            inpt = float(fahrenheit)
-            print("---------------------------------------------------")
-            celsius = f_to_c(inpt)
-            print(text['x_to_c'].format(celsius))
-            break
-        except ValueError:
-            print(text['vluerr'])
-
-
-
-
-
-elif choose == "2":
     while True:
-        fahrenheit = input(text['inputf'])
+
+        value = input(input_text)
+
         try:
-            inpt = float(fahrenheit)
+            number = float(value)
+            result = convert_func(number)
             print("---------------------------------------------------")
-            kelvin = f_to_k(inpt)
-            print(text['x_to_c'].format(kelvin))
+            print(output_text.format(result))
             break
+
         except ValueError:
             print(text['vluerr'])
 
 
+if from_unit == "C" and to_unit == "K":
+    convert_temperature(
+        text['inputc'],
+        text['x_to_k'],
+        c_to_k
+    )
 
+elif from_unit == "C" and to_unit == "F":
+    convert_temperature(
+        text['inputc'],
+        text['x_to_f'],
+        c_to_f
+    )
 
+elif from_unit == "K" and to_unit == "C":
+    convert_temperature(
+        text['inputk'],
+        text['x_to_c'],
+        k_to_c
+    )
 
+elif from_unit == "K" and to_unit == "F":
+    convert_temperature(
+        text['inputk'],
+        text['x_to_f'],
+        k_to_f
+    )
 
+elif from_unit == "F" and to_unit == "C":
+    convert_temperature(
+        text['inputf'],
+        text['x_to_c'],
+        f_to_c
+    )
 
-elif choose == "3":
-    while True: 
-        kelvin = input(text['inputc'])
-        try:
-            inpt = float(kelvin)
-            print("---------------------------------------------------")
-            fahrenheit = k_to_f(inpt)
-            print(text['x_to_f'].format(fahrenheit))
-            break
-        except ValueError:
-            print(text['vluerr'])
+elif from_unit == "F" and to_unit == "K":
+    convert_temperature(
+        text['inputf'],
+        text['x_to_k'],
+        f_to_k
+    )
 
-
-
-
-
-elif choose == "4":
-    while True: 
-        kelvin = input(text['inputc'])
-        try:
-            inpt = float(kelvin)
-            print("---------------------------------------------------")
-            celsius = k_to_c(inpt)
-            print(text['x_to_c'].format(celsius))
-            break
-        except ValueError:
-            print(text['vluerr'])
-
-
-
-
-
-
-elif choose == "5":
-    while True: 
-        celsius = input(text['inputc'])
-        try:
-            inpt = float(celsius)
-            print("---------------------------------------------------")
-            fahrenheit = c_to_k(inpt)
-            print(text['x_to_f'].format(fahrenheit))
-            break
-        except ValueError:
-            print(text['vluerr'])
-
-
-
-
-
-
-elif choose == "6":
-    while True: 
-        celsius = input(text['inputc'])
-        try:
-            inpt = float(celsius)
-            print("---------------------------------------------------")
-            kelvin = c_to_k(inpt)
-            print(text['x_to_k'].format(kelvin))
-            break
-        except ValueError:
-            print(text['vluerr'])
+else:
+    print(text['errorsame'])
 
 
 
