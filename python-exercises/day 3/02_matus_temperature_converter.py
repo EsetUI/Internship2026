@@ -5,15 +5,15 @@ languages = {
 
         'from_unit':
         "Zvoľ jednotku Z KTOREJ chceš konvertovať:\n"
-        "1 - Celsius\n"
-        "2 - Kelvin\n"
-        "3 - Fahrenheit\n",
+        "C - Celsius\n"
+        "K - Kelvin\n"
+        "F - Fahrenheit\n",
 
         'to_unit':
         "Zvoľ jednotku NA KTORÚ chceš konvertovať:\n"
-        "1 - Celsius\n"
-        "2 - Kelvin\n"
-        "3 - Fahrenheit\n",
+        "C - Celsius\n"
+        "K - Kelvin\n"
+        "F - Fahrenheit\n",
 
         'inputc': "Zadaj teplotu (°C): ",
         'inputf': "Zadaj teplotu (F): ",
@@ -33,15 +33,15 @@ languages = {
 
         'from_unit':
         "Choose the unit you want to convert FROM:\n"
-        "1 - Celsius\n"
-        "2 - Kelvin\n"
-        "3 - Fahrenheit\n",
+        "C - Celsius\n"
+        "K - Kelvin\n"
+        "F - Fahrenheit\n",
 
         'to_unit':
         "Choose the unit you want to convert TO:\n"
-        "1 - Celsius\n"
-        "2 - Kelvin\n"
-        "3 - Fahrenheit\n",
+        "C - Celsius\n"
+        "K - Kelvin\n"
+        "F - Fahrenheit\n",
 
         'inputc': "Enter temperature (°C): ",
         'inputf': "Enter temperature (F): ",
@@ -59,7 +59,7 @@ languages = {
 
 
 while True:
-    lang = input("Choose a language (sk/en): ")
+    lang = input("Choose a language (sk/en): ").lower()
 
     try:
         text = languages[lang]
@@ -75,9 +75,9 @@ print("---------------------------------------------------")
 
 
 while True:
-    from_unit = input(text['from_unit'])
+    from_unit = input(text['from_unit']).upper()
 
-    if from_unit in ["1", "2", "3"]:
+    if from_unit in ["C", "K", "F"]:
         break
 
     print(text['error'])
@@ -85,9 +85,9 @@ while True:
 print("---------------------------------------------------")
 
 while True:
-    to_unit = input(text['to_unit'])
+    to_unit = input(text['to_unit']).upper()
 
-    if to_unit in ["1", "2", "3"]:
+    if to_unit in ["C", "K", "F"]:
         break
 
     print(text['error'])
@@ -129,42 +129,42 @@ def convert_temperature(input_text, output_text, convert_func):
             print(text['vluerr'])
 
 
-if from_unit == "1" and to_unit == "2":
+if from_unit == "C" and to_unit == "K":
     convert_temperature(
         text['inputc'],
         text['x_to_k'],
         c_to_k
     )
 
-elif from_unit == "1" and to_unit == "3":
+elif from_unit == "C" and to_unit == "F":
     convert_temperature(
         text['inputc'],
         text['x_to_f'],
         c_to_f
     )
 
-elif from_unit == "2" and to_unit == "1":
+elif from_unit == "K" and to_unit == "C":
     convert_temperature(
         text['inputk'],
         text['x_to_c'],
         k_to_c
     )
 
-elif from_unit == "2" and to_unit == "3":
+elif from_unit == "K" and to_unit == "F":
     convert_temperature(
         text['inputk'],
         text['x_to_f'],
         k_to_f
     )
 
-elif from_unit == "3" and to_unit == "1":
+elif from_unit == "F" and to_unit == "C":
     convert_temperature(
         text['inputf'],
         text['x_to_c'],
         f_to_c
     )
 
-elif from_unit == "3" and to_unit == "2":
+elif from_unit == "F" and to_unit == "K":
     convert_temperature(
         text['inputf'],
         text['x_to_k'],
@@ -173,3 +173,6 @@ elif from_unit == "3" and to_unit == "2":
 
 else:
     print(text['errorsame'])
+
+
+

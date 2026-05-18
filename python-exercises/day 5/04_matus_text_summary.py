@@ -5,7 +5,6 @@ import string
 def clean_word(word: str) -> str:                                                                # cisti slovo  
     return word.strip(string.punctuation).lower()
 
-
 def unique_word_count(text: str) -> dict:                                                        # counter roznych slov 
     words = {}
     for word in text.split():
@@ -18,7 +17,6 @@ def unique_word_count(text: str) -> dict:                                       
             words[word] = 1
 
     return words
-
 
 def vowel_counter(text: str) -> int:                                                             # counter samohlasok 
     vow = set("aeiouyAEIOUY")
@@ -57,7 +55,6 @@ def count(text: str) -> int:                                                    
     return len([clean_word(w) for w in text.split() if clean_word(w) != ""])
 
 
-
 def main() -> None:                                                 
 
     while True:
@@ -84,7 +81,6 @@ def main() -> None:
             print("Error, no input was entered. Try again please: ")
             continue
         break
-
 
     print(f"The count of characters in your text is: {len(text)}")
     print(f"The count of letters in your text is: {letter_counter(text)}")
