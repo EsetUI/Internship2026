@@ -37,12 +37,19 @@ int main() {
 
 void print_output(std::span<std::string_view> arr, double degrees) {
 	std::cout << arr[4];
-	char unit_from = request_valid_input<char, std::string>(arr[2], "\nInvalid input you have to enter a valid unit(C,F,K)\n\n","CFK");
-	char unit_to = request_valid_input<char, std::string>(arr[3], "\nInvalid input you have to enter a valid unit(C,F,K)\n\n","CFK");
-	
+	char unit_from{};
+	char unit_to{};
+
+	while (true) {
+		unit_from = request_valid_input<char, std::string>(arr[2], "\nInvalid input you have to enter a valid unit(C,F,K)\n\n", "CFK");
+		unit_to = request_valid_input<char, std::string>(arr[3], "\nInvalid input you have to enter a valid unit(C,F,K)\n\n", "CFK");
+		if (unit_from != unit_to) break;
+		std::cout << "\nConversion to the same unit is not possible\n\n";
+	}
 	degrees = request_valid_input<double>(std::vformat(arr[0],std::make_format_args(unit_from, unit_to)), "\nInvalid input enter a real number\n\n");
 
 	double temp{};
+	
 	switch (unit_from) {
 	case 'C':
 		switch (unit_to) {
@@ -131,8 +138,7 @@ T request_valid_input(std::string_view input_msg, std::string_view error_msg,con
 			}
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			std::cout << error_msg;
-			return request_valid_input<T, _T>(input_msg, error_msg, input_options);
+			std::cerr << std::format("\nValue '{}' was not included in valid options\n\n", value);
 		}
 	}
 }

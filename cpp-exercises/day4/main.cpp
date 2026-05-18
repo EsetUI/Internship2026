@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) {
 		nums = handle_console_input();
 	}
 	
-
+	nums = handle_console_input();
 	print_stats(nums);
 }
 
@@ -85,12 +85,13 @@ std::string handle_file_input(const std::string &file_name) {
 }
 
 std::vector<double> handle_console_input() {
+	std::vector<double> output;
 	std::string raw_input;
-	std::cout << "Numbers: ";
-	std::getline(std::cin, raw_input);
-	std::vector<double> output = parse_numbers(raw_input);
-
-	if (output.empty()) return handle_console_input();
+	while (output.empty()) {
+		std::cout << "Enter numbers: ";
+		std::getline(std::cin, raw_input);
+		output = parse_numbers(raw_input);
+	}
 	return output;
 }
 

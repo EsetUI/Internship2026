@@ -15,6 +15,7 @@ std::string remove_punctuation_copy(std::string);
 size_t get_unique_word_count( std::string);
 void turn_lowercase(std::string&);
 size_t get_scentence_count(const std::string& input);
+void print_highlighted_letter(std::string_view);
 
 
 
@@ -28,6 +29,22 @@ int main(int argc, char* argv[]) {
 	}
 
 	print_text_info(input);
+}
+
+
+void print_highlighted_letter(std::string_view input) {
+	std::cout << "Enter a letter to highlight: ";
+	char target{};
+	std::cin >> target;
+
+	for (auto c : input) {
+		if (c == target) {
+			std::cout << std::format("\033[32m{}\033[0m", c);
+		}
+		else {
+			std::cout << c;
+		}
+	}
 }
 
 std::string get_file_input(const std::string &file_name) {
@@ -47,15 +64,18 @@ std::string get_file_input(const std::string &file_name) {
 }
 
 void print_text_info(const std::string &input) {
+	std::string no_punct_input = remove_punctuation_copy(input);
+	
 	std::cout << std::format("Text size:         {}\n", input.length());
 	std::cout << std::format("Vowel count:       {}\n", get_vowel_count(input));
-	std::cout << std::format("Word count:        {}\n", get_word_count(input));
-	std::cout << std::format("Unique word count: {}\n", get_unique_word_count(input));
+	std::cout << std::format("Word count:        {}\n", get_word_count(no_punct_input));
+	std::cout << std::format("Unique word count: {}\n", get_unique_word_count(no_punct_input));
 	std::cout << std::format("Scentences:        {}\n", get_scentence_count(input));
+	print_highlighted_letter(input);
 }
 
-size_t get_word_count(const std::string &raw_input) {
-	std::istringstream input(remove_punctuation_copy(raw_input));
+size_t get_word_count(const std::string & no_punct_input) {
+	std::istringstream input(no_punct_input);
 	std::string word;
 	size_t word_count{};
 	while (input >> word) {
@@ -79,10 +99,10 @@ void turn_lowercase(std::string &input) {
 	}
 }
 
-size_t get_unique_word_count(std::string raw_input) {
-	turn_lowercase(raw_input);
+size_t get_unique_word_count(std::string no_punct_input) {
+	turn_lowercase(no_punct_input);
 	std::map<std::string, size_t> u_words;
-	std::istringstream input(remove_punctuation_copy(raw_input));
+	std::istringstream input(no_punct_input);
 	std::string word;
 	while (input >> word) {
 		u_words[word]++;
@@ -121,10 +141,9 @@ size_t get_vowel_count(const std::string &input) {
 
 std::string get_console_input(std::string_view input_msg) {
 	std::string input;
-	std::cout << input_msg;
-	std::getline(std::cin, input);
-	if (input.empty()) {
-		return get_console_input(input_msg);
+	while (input.empty()) {
+		std::cout << input_msg;
+		std::getline(std::cin, input);
 	}
 	return input;
 }
