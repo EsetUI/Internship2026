@@ -2,6 +2,7 @@
 #include <format>
 #include <span>
 #include <string>
+#include <cctype>
 
 double c_to_f(double);
 double f_to_c(double);
@@ -46,6 +47,8 @@ void print_output(std::span<std::string_view> arr, double degrees) {
 		if (unit_from != unit_to) break;
 		std::cout << "\nConversion to the same unit is not possible\n\n";
 	}
+	unit_from = std::toupper(static_cast<unsigned char>(unit_from));
+	unit_to = std::toupper(static_cast<unsigned char>(unit_to));
 	degrees = request_valid_input<double>(std::vformat(arr[0],std::make_format_args(unit_from, unit_to)), "\nInvalid input enter a real number\n\n");
 
 	double temp{};
@@ -133,8 +136,13 @@ T request_valid_input(std::string_view input_msg, std::string_view error_msg,con
 			continue;
 		}
 		else {
+			value = std::tolower(static_cast<unsigned char>(value));
 			for (auto option : input_options) {
-				if (option == value) return value;
+				option = std::tolower(static_cast<unsigned char>(option));
+				if (option == value) {
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					return value;
+				}
 			}
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
