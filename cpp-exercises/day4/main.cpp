@@ -4,6 +4,7 @@
 #include <string>
 #include <format>
 #include <algorithm>
+#include <iomanip>
 #include <fstream>
 
 std::string handle_file_input(const std::string& );
@@ -48,8 +49,8 @@ void print_stats(const std::vector<double> &nums) {
 	}
 
 	std::cout << std::format("Count: {}\n", nums.size());
-	std::cout << std::format("Sum: {}\n", get_sum(nums));
-	std::cout << std::format("Avrage: {}\n", get_avr(nums));
+	std::cout << std::format("Sum: {:.2f}\n", get_sum(nums));
+	std::cout << std::format("Avrage: {:.2f}\n", get_avr(nums));
 	std::cout << std::format("\033[31mMin number: {}\033[0m\n", *std::min_element(nums.begin(), nums.end()));
 	std::cout << std::format("\033[32mMax number: {}\033[0m\n", *std::max_element(nums.begin(), nums.end()));
 
