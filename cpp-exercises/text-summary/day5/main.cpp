@@ -141,10 +141,9 @@ size_t get_vowel_count(const std::string &input) {
 
 std::string get_console_input(std::string_view input_msg) {
 	std::string input;
-	std::cout << input_msg;
-	std::getline(std::cin, input);
-	if (input.empty()) {
-		return get_console_input(input_msg);
+	while (input.empty()) {
+		std::cout << input_msg;
+		std::getline(std::cin, input);
 	}
 	return input;
 }

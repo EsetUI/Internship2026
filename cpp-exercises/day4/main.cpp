@@ -4,6 +4,7 @@
 #include <string>
 #include <format>
 #include <algorithm>
+#include <iomanip>
 #include <fstream>
 
 std::string handle_file_input(const std::string& );
@@ -26,7 +27,7 @@ int main(int argc, char* argv[]) {
 		nums = handle_console_input();
 	}
 	
-
+	nums = handle_console_input();
 	print_stats(nums);
 }
 
@@ -48,8 +49,8 @@ void print_stats(const std::vector<double> &nums) {
 	}
 
 	std::cout << std::format("Count: {}\n", nums.size());
-	std::cout << std::format("Sum: {}\n", get_sum(nums));
-	std::cout << std::format("Avrage: {}\n", get_avr(nums));
+	std::cout << std::format("Sum: {:.2f}\n", get_sum(nums));
+	std::cout << std::format("Avrage: {:.2f}\n", get_avr(nums));
 	std::cout << std::format("\033[31mMin number: {}\033[0m\n", *std::min_element(nums.begin(), nums.end()));
 	std::cout << std::format("\033[32mMax number: {}\033[0m\n", *std::max_element(nums.begin(), nums.end()));
 
@@ -84,12 +85,13 @@ std::string handle_file_input(const std::string &file_name) {
 }
 
 std::vector<double> handle_console_input() {
+	std::vector<double> output;
 	std::string raw_input;
-	std::cout << "Numbers: ";
-	std::getline(std::cin, raw_input);
-	std::vector<double> output = parse_numbers(raw_input);
-
-	if (output.empty()) return handle_console_input();
+	while (output.empty()) {
+		std::cout << "Enter numbers: ";
+		std::getline(std::cin, raw_input);
+		output = parse_numbers(raw_input);
+	}
 	return output;
 }
 
