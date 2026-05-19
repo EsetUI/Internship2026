@@ -25,3 +25,22 @@ Students should be able to:
 * one shared task breakdown
 * separate Python and C++ project branches
 
+### Stand Up
+
+Matus
+
+1. Friday
+  * text summary assignment
+  * improving console output
+  * handle invalid input safely
+
+2. Monday
+  * symplifying duplicated logic
+  * reading error messages better
+
+3. Tuesday
+  * started planning a mini-project
+  * split the work into small tasks
+  * created a first working version of the project which can be upgraded in the future
+    
+
