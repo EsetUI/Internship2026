@@ -1,0 +1,40 @@
+{
+  "questions": [
+    {
+      "question": "What's the capital of France?",
+      "answers": [
+        "Paris",
+        "London",
+        "Berlin",
+        "Madrid"
+      ],
+      "correctanswer": 0,
+      "timeout": 10,
+      "difficulty": 3
+    },
+    {
+      "question": "What is the largest planet in our solar system?",
+      "answers": [
+        "Earth",
+        "Mars",
+        "Jupiter",
+        "Saturn"
+      ],
+      "correctanswer": 2,
+      "timeout": 10,
+      "difficulty": 4
+    },
+    {
+      "question": "Who wrote 'To Kill a Mockingbird'?",
+      "answers": [
+        "Harper Lee",
+        "Mark Twain",
+        "Ernest Hemingway",
+        "F. Scott Fitzgerald"
+      ],
+      "correctanswer": 0,
+      "timeout": 0,
+      "difficulty": 5
+    }
+  ]
+}
