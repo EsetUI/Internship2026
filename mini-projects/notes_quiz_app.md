@@ -1,6 +1,9 @@
 
 # QUIZ APP
 
+
+
+
 # Requirements
 
 * console window tui for displaying the quiz app
@@ -19,8 +22,8 @@
 
 
 
-# STEPS
 
+# Steps
 
 * step 1 - create a list of questions and answers
 
@@ -45,7 +48,7 @@
 
 
 
-# OPTIONAL
+# Optional
 
 * add an optional timer for each question
 
@@ -53,9 +56,10 @@
 
 * after answering it will skip to another in 5 seconds
 
-# FILE FORMAT
 
 
+
+# File Format
 
 ```
 {
