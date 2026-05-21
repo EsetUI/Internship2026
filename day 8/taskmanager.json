@@ -1,0 +1,16 @@
+{
+  "tasks": [
+    {
+      "text": "jest",
+      "done": false
+    },
+    {
+      "text": "hej",
+      "done": false
+    },
+    {
+      "text": "nie",
+      "done": true
+    }
+  ]
+}
