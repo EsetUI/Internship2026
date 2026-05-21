@@ -2,8 +2,6 @@ import json
 import os
 import sys                             # apka sa ma spravat ako git
 
-with open("day 8/taskmanager.json", "r") as sub:
-    data = json.load(sub)
 
 class Task:
     def __init__(self, text:str, done:bool = False):
@@ -65,14 +63,29 @@ class TaskManager:
             return
 
         with open("day 8/taskmanager.json", "r") as subf:
-            data = json.load(subf)
+            try:
+                data = json.load(subf)
+            except json.JSONDecodeError:
+                print("Error: taskmanager.json is corrupted. Starting with an empty task list.")
+                self.tasks = []
+                return
+            
+        
+        self.tasks = [Task(t["text"], t["done"]) for t in data["tasks"]]
 
-        self.tasks = [Task(t["text"], t["done"]) for t in data]
 
 
     def save(self):
         with open("day 8/taskmanager.json", "w") as subchange:
-            json.dump([{"text": t.text, "done": t.done} for t in self.tasks], subchange)
+            json.dump(
+                {
+                    "tasks": [
+                        {"text": t.text, "done": t.done} for t in self.tasks
+                    ]
+                },
+                subchange,
+                indent=2
+            )
 
 
     def add(self, text:str):                                    # ked uzivatel da add tak nech za to napise text a tak to bude fungvat ako v git
