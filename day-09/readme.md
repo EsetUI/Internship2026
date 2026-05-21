@@ -26,3 +26,14 @@ Students should practice:
 * short README for each implementation
 * ready-to-demo Python and C++ versions
 
+### Stand Up
+
+Matus
+
+* cmd task tracker
+* program managed a few user tasks
+
+
+* cmd calculator
+* the 4 main operations, supported power, modulo
+  
