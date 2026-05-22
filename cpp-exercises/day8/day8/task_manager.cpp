@@ -6,7 +6,8 @@
 #include "json.hpp"
 #include "task_manager.hpp"
 
-
+constexpr int REMOVE = 1;
+constexpr int DONE = 2;
 
 bool TaskManager::Load(const std::string& file_name) {
 	Clear();
@@ -54,12 +55,58 @@ void from_json(const nlohmann::json& j, Task& t) {
 
 bool TaskManager::Save() {
 	std::ofstream fout(m_file_name);
+	if (!fout) return false;
 	nlohmann::json json_tasks;
 	json_tasks["tasks"] = m_tasks;
 	fout << json_tasks.dump(4);
 	return true;
 }
-void TaskManager::AddTask(std::string& task) {
+int TaskManager::SearchForTask(const std::string &task, int option) {
+	int targets{};
+	size_t target_index{};
+	for (size_t i = 0; i < m_tasks.size();i++) {
+		if (m_tasks[i].task == task) {
+			if (option == REMOVE) {
+				if (m_tasks[i].done) {
+					m_last_done_index--;
+				}
+				m_tasks.erase(m_tasks.begin() + i);
+			}
+			else if (option == DONE) {
+				if (!m_tasks[target_index].done) {
+					m_tasks[i].done = true;
+					std::swap(m_tasks[target_index], m_tasks[m_last_done_index]);
+					m_last_done_index++;
+				}
+			}
+			else throw std::runtime_error("\nUnexpected option\n\n");
+			return 1;
+		}
+		if (m_tasks[i].task.find(task) != std::string::npos) {
+			target_index = i;
+			targets++;
+		}
+	}
+	if (targets == 1) {
+		if (option == REMOVE) {
+			if (m_tasks[target_index].done) {
+				m_last_done_index--;
+			}
+			m_tasks.erase(m_tasks.begin() + target_index);
+		}
+		else if (option == DONE) {
+			if (!m_tasks[target_index].done) {
+				m_tasks[target_index].done = true;
+				std::swap(m_tasks[target_index], m_tasks[m_last_done_index]);
+				m_last_done_index++;
+			}
+		}
+		else throw std::runtime_error("\nUnexpected option\n\n");
+	}
+	return targets;
+}
+
+void TaskManager::AddTask(const std::string& task) {
 	Task temp;
 	temp.done = false;
 	temp.task = task;
@@ -69,25 +116,7 @@ void TaskManager::AddTask(std::string& task) {
 	m_tasks.emplace_back(temp);
 }
 int TaskManager::RmTask(const std::string& task) {
-	int targets{};
-	size_t target_index{};
-	for (int i = 0; i < m_tasks.size();i++) {
-		if (m_tasks[i].task == task) {
-			if (m_tasks[i].done) {
-				m_last_done_index--;
-			}
-			m_tasks.erase(m_tasks.begin() + i);
-			return 1;
-		}
-		if (m_tasks[i].task.find(task) != std::string::npos) {
-			target_index = i;
-			targets++;
-		}
-	}
-	if (targets == 1) {
-		m_tasks.erase(m_tasks.begin() + target_index);
-	}
-	return targets;
+	return SearchForTask(task, REMOVE);
 }
 
 bool TaskManager::RmTask(int index)
@@ -103,31 +132,7 @@ bool TaskManager::RmTask(int index)
 }
 
 int TaskManager::Done(const std::string& task) {
-	int targets{};
-	size_t target_index{};
-	for (int i = 0; i < m_tasks.size();i++) {
-		if (m_tasks[i].task == task) {
-			if (!m_tasks[target_index].done) {
-				m_tasks[i].done = true;
-				std::swap(m_tasks[target_index], m_tasks[m_last_done_index]);
-				m_last_done_index++;
-			}
-			return 1;
-		}
-		if (m_tasks[i].task.find(task) != std::string::npos) {
-
-			target_index = i;
-			targets++;
-		}
-	}
-	if (targets == 1) {
-		if (!m_tasks[target_index].done) {
-			m_tasks[target_index].done = true;
-			std::swap(m_tasks[target_index], m_tasks[m_last_done_index]);
-			m_last_done_index++;
-		}
-	}
-	return targets;
+	return SearchForTask(task, DONE);
 }
 
 bool TaskManager::Done(int index)
@@ -144,109 +149,121 @@ bool TaskManager::Done(int index)
 }
 
 int TaskManager::Run() {
-	while (true) {
+	std::string raw_input;
+	while (raw_input.empty()) {
 		std::cout << "task_tacker:";
-		std::string raw_input;
 		std::getline(std::cin, raw_input);
-		auto input = ParseInput(raw_input);
-		int temp_i{};
-		char temp_c{};
-		std::string command = std::get<std::string>(input[0]);
-		std::string task = std::get<std::string>(input[1]);
-		auto ptr_i = std::get_if<int>(&input[2]);
-		auto ptr_s = std::get_if<std::string>(&input[2]);
-
-		if (command == "quit") {
-			std::cout << "Save before quit?(y/n):";
-			try {
-				std::cin >> temp_c;
-				if (temp_c == 'y') {
-					Save();
+	}
+	std::vector<std::string> input = ParseInput(raw_input);
+	std::vector<std::string> args;
+	if (input.size() > 2) {
+		args.assign(input.begin() + 1, input.end() - 1);
+	}
+	std::string command = input[0];
+	std::string task = input[input.size() - 1];
+	int temp_i{};
+	char temp_c{};
+	if (command == "quit") {
+		std::cout << "Save before quit?(y/n):";
+		try {
+			std::cin >> temp_c;
+			if (temp_c == 'y') {
+				if (Save()) {
 					std::cout << "File was saved succesfully\n";
 				}
-			}
-			catch(const std::exception &e){
-				std::cout << "Issue was found file was not saved";
-			}
-			return 0;
-			
-		}
-		else if (command == "list") {
-			if (!ptr_s) {
-				List(false);
-			}
-			else if(*ptr_s == "--time"){
-				List(true);
-			}
-			else {
-				List(false);
-			}
-			
-		}
-		else if (command == "add") {
-			AddTask(task);
-			std::cout << "Task was added succesfully \n";
-		}
-		else if (command == "rm") {
-			if (ptr_i) {
-				temp_i = RmTask(*ptr_i);
-			}
-			else {
-				temp_i = RmTask(task);
-			}
-			if (temp_i == 1) {
-				std::cout << "Task was removed succesfully\n";
-			}
-			else if (temp_i == 0) {
-				std::cout << "Task not found\n";
-			}
-			else {
-				std::cout << std::format("There are {} tasks with this task\n", temp_i);
+				throw std::exception();
 			}
 		}
-		else if (command == "done") {
-			if (ptr_i) {
-				temp_i = Done(*ptr_i);
-			}
-			else {
-				temp_i = Done(task);
-			}
-			if (temp_i == 1) {
-				std::cout << "Task was marked as done succesfully\n";
-			}
-			else if (temp_i == 0) {
-				std::cout << "Task not found\n";
-			}
-			else {
-				std::cout << std::format("There are {} tasks with this task\n", temp_i);
+		catch (const std::exception& e) {
+			std::cout << "Issue was found file was not saved";
+		}
+		throw 0;
+	}
+	else if (command == "list") {
+		if (args.empty()) List(false);
+		else {
+			for (const auto& arg : args) {
+				if (arg == "--time") {
+					List(true);
+				}
+				else {
+					throw std::runtime_error(std::format("\nThis command does not support '{}'\n\n", arg));
+				}
 			}
 		}
-		else if (command == "save") {
-			if (Save()) {
-				std::cout << "File was saved succesfully\n";
-			}
-			else {
-				std::cout << "Issue was found file could not be saved\n";
-			}
+	}
+	else if (command == "add") {
+		if (task.empty()) throw std::runtime_error(std::format("You cant use '{}' without task", command));
+		if (!args.empty()) throw std::runtime_error(std::format("'{}' does not take any arguments", command));
+		AddTask(task);
+		std::cout << "Task was added succesfully \n";
+	}
+	else if (command == "rm") {
+		if (!args.empty() && std::isdigit(args[0][0])) {
+			int index = std::stoi(args[0]);
+			temp_i = RmTask(index);
 		}
-		else if (command == "load") {
-			if (Load(task)) {
-				std::cout << "File was loaded succesfully\n";
-				m_file_name = task;
-			}
-			else {
-				std::cout << "Issue was found file could not be loaded\n";
-			}
+		else {
+			if (task.empty()) throw std::runtime_error(std::format("You cant use '{}' without task or index", command));
+			temp_i = RmTask(task);
 		}
-		else if (command == "help") {
-			PrintHelp();
+
+		if (temp_i == 1) {
+			std::cout << "Task was removed succesfully\n";
 		}
+		else if (temp_i == 0) {
+			std::cout << "Task not found\n";
+		}
+		else {
+			std::cout << std::format("There are {} tasks with this task\n", temp_i);
+		}
+	}
+	else if (command == "done") {
+		if (!args.empty() && std::isdigit(args[0][0])) {
+			int index = std::stoi(args[0]);
+			temp_i = Done(index);
+		}
+		else {
+			if (task.empty()) throw std::runtime_error(std::format("You cant use '{}' without task or index", command));
+			temp_i = Done(task);
+		}
+
+		if (temp_i == 1) {
+			std::cout << "Task was marked as done succesfully\n";
+		}
+		else if (temp_i == 0) {
+			std::cout << "Task not found\n";
+		}
+		else {
+			std::cout << std::format("There are {} tasks with this task\n", temp_i);
+		}
+	}
+	else if (command == "save") {
+		if (Save()) {
+			std::cout << "File was saved succesfully\n";
+		}
+		else {
+			std::cout << "Issue was found file could not be saved\n";
+		}
+	}
+	else if (command == "load") {
+		if (Load(task)) {
+			std::cout << "File was loaded succesfully\n";
+			m_file_name = task;
+		}
+		else {
+			std::cout << "Issue was found file could not be loaded\n";
+		}
+	}
+	else if (command == "help") {
+		PrintHelp();
 	}
 }
 
 void TaskManager::Clear() {
 	m_tasks.clear();
 	m_tasks.shrink_to_fit();
+	m_last_done_index = 0;
 }
 
 
@@ -284,7 +301,68 @@ void TaskManager::PrintHelp() {
 	std::cout << "load \"file\"<-- load will replace all current tasks with tasks from given json file\n\n";
 }
 
-std::vector<parse_argument> TaskManager::ParseInput(const std::string& raw_input) {
+std::vector<std::string> TaskManager::Tokenize(const std::string& input) {
+	std::vector<std::string> tokens;
+	std::string current;
+	bool in_quotes = false;
+
+	for (size_t i = 0; i < input.size();i++) {
+		char c = input[i];
+		if (c == '"') {
+			in_quotes = !in_quotes;
+			current += c;
+			continue;
+		}
+		if (std::isspace(static_cast<unsigned char>(c)) && !in_quotes) {
+			if (!current.empty()){
+				tokens.push_back(current);
+				current.clear();
+			}
+		}
+		else {
+			current += c;
+		}
+	}
+
+	if (!current.empty()) tokens.push_back(current);
+	return tokens;
+}
+
+std::vector<std::string> TaskManager::ParseInput(const std::string& raw_input) {
+	std::vector<std::string> input = Tokenize(raw_input);
+	
+	const std::string_view commands[] = { "add","rm","quit","load","save","list","done","help" };
+	auto it = std::find(std::begin(commands), std::end(commands), input[0]);
+	if (it == std::end(commands)) throw std::runtime_error("Unknown command");
+
+	bool task_found = false;
+	const std::string_view args[] = { "--time" };
+	int temp{};
+	bool one_number = false;
+	for (size_t i = 1; i < input.size();i++) {
+
+		try {
+			temp = std::stoi(input[i]);
+			if (one_number) throw std::runtime_error("\nMore than one number is not allowed\n\n");
+			one_number = true;
+			continue;
+		}
+		catch (const std::exception& e) {}
+
+		if (i == input.size() - 1 && input[i][0] == '"' && input[i].back() == '"') {
+			input[i] = input[i].substr(1, input[i].size() - 2);
+			task_found = true;
+			break;
+		}
+
+		it = std::find(std::begin(args), std::end(args), input[i]);
+		if (it == std::end(args)) throw std::runtime_error("\nUnknown argument\n\n");
+	}
+	if (!task_found)input.push_back("");
+	return input;
+}
+
+/*std::vector<parse_argument> TaskManager::ParseInput(const std::string& raw_input) {
 	std::istringstream ss(raw_input);
 	const std::string commands[] = { "add","rm","quit","load","save","list","done","help"};
 	std::string command;
@@ -326,7 +404,6 @@ std::vector<parse_argument> TaskManager::ParseInput(const std::string& raw_input
 					return { command,"",temp_s };
 				}
 			}
-			
 		}
 	}
 
@@ -344,4 +421,4 @@ std::vector<parse_argument> TaskManager::ParseInput(const std::string& raw_input
 		}
 	}
 	return { command,task,""};
-}
+}*/

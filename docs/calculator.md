@@ -1,393 +1,138 @@
-# Token-Based Calculator Evaluator Algorithm
+# **Expression Evaluator Algorithm**
 
-This document describes an algorithm for evaluating mathematical expressions using tokens and recursive descent parsing.
+This document outlines the design and implementation of a recursive descent parser for evaluating mathematical expressions with standard operator precedence.
 
-Example expression:
+## **1\. Tokenization**
 
-```text
-5 * 4 - (2 + 3)
-```
+The first step is to convert the input string into a stream of tokens. This simplifies the parsing process by grouping characters into meaningful units.
 
-Expected result:
+### **Algorithm**
 
-```text
-15
-```
+function tokenize(input):  
+    tokens \= \[\]
 
----
-
-## 1. Overview
-
-The evaluator has two main phases:
-
-```text
-input string -> tokens -> parser -> result
-```
-
-First, the input string is converted into tokens.
-Then, the parser evaluates those tokens according to operator precedence.
-
-Supported operators:
-
-```text
-+
--
-*
-/
-(
-)
-```
-
-Supported values:
-
-```text
-integer numbers
-decimal numbers
-negative numbers
-```
-
----
-
-## 2. Tokenization
-
-Tokenization converts the input string into a list of meaningful symbols.
-
-Example input:
-
-```text
-5 * 4 - (2 + 3)
-```
-
-Tokens:
-
-```text
-NUMBER(5)
-MULTIPLY
-NUMBER(4)
-MINUS
-LEFT_PAREN
-NUMBER(2)
-PLUS
-NUMBER(3)
-RIGHT_PAREN
-END
-```
-
-### Tokenization Algorithm
-
-```text
-function tokenize(input):
-    tokens = []
-
-    for each character in input:
-        if character is whitespace:
-            skip it
-
-        else if character is digit:
-            read the full number
-            add NUMBER token
-
-        else if character is '+':
-            add PLUS token
-
-        else if character is '-':
-            add MINUS token
-
-        else if character is '*':
-            add MULTIPLY token
-
-        else if character is '/':
-            add DIVIDE token
-
-        else if character is '(':
-            add LEFT_PAREN token
-
-        else if character is ')':
-            add RIGHT_PAREN token
-
-        else:
+    for each character in input:  
+        if character is whitespace:  
+            skip it  
+        else if character is digit:  
+            read full number  
+            add NUMBER token  
+        else if character is '+': add PLUS token  
+        else if character is '-': add MINUS token  
+        else if character is '\*': add MULTIPLY token  
+        else if character is '/': add DIVIDE token  
+        else if character is '(': add LEFT\_PAREN token  
+        else if character is ')': add RIGHT\_PAREN token  
+        else:  
             error: invalid character
 
-    add END token
-
+    add END token  
     return tokens
-```
 
----
+## **2\. Parsing Grammar**
 
-## 3. Parser Grammar
+To enforce operator precedence, we use a formal grammar where expressions are broken down into smaller, strictly defined parts:
 
-The parser uses three levels of precedence.
+* ![][image1]  
+* ![][image2]  
+* ![][image3]
 
-```text
-expression = term ((PLUS | MINUS) term)*
-term       = factor ((MULTIPLY | DIVIDE) factor)*
-factor     = NUMBER | MINUS factor | LEFT_PAREN expression RIGHT_PAREN
-```
+## **3\. Evaluator Algorithm**
 
-### Meaning
+### **The Most Important Rule**
 
-```text
-expression handles + and -
-term       handles * and /
-factor     handles numbers, unary minus, and parentheses
-```
+The core of this evaluator lies in the recursive relationship between these functions:
 
-This gives multiplication and division higher priority than addition and subtraction.
+1. parseExpression calls parseTerm  
+2. parseTerm calls parseFactor  
+3. parseFactor can call parseExpression again inside parentheses.
 
----
+This hierarchy ensures that parseFactor (the deepest level) has the highest precedence, followed by terms, and finally expressions.
 
-## 4. Parser State
+### **Parser Functions**
 
-The parser keeps:
+**parseExpression()** (Handles addition and subtraction)
 
-```text
-tokens
-current position
-current token
-```
-
-Useful helper operations:
-
-```text
-current()  -> returns the current token
-advance()  -> moves to the next token
-consume(t) -> checks that the current token is t, then advances
-```
-
----
-
-## 5. parseExpression
-
-`parseExpression` handles addition and subtraction.
-
-```text
-function parseExpression():
-    value = parseTerm()
-
-    while current token is PLUS or MINUS:
-        operator = current token
-        advance()
-
-        right = parseTerm()
-
-        if operator is PLUS:
-            value = value + right
-        else:
-            value = value - right
-
+function parseExpression():  
+    value \= parseTerm()  
+    while current token is PLUS or MINUS:  
+        operator \= current token  
+        move to next token  
+        right \= parseTerm()  
+        if operator is PLUS: value \= value \+ right  
+        else: value \= value \- right  
     return value
-```
 
-Example:
+**parseTerm()** (Handles multiplication and division)
 
-```text
-2 + 3 - 1
-```
-
-Evaluation:
-
-```text
-2 + 3 = 5
-5 - 1 = 4
-```
-
----
-
-## 6. parseTerm
-
-`parseTerm` handles multiplication and division.
-
-```text
-function parseTerm():
-    value = parseFactor()
-
-    while current token is MULTIPLY or DIVIDE:
-        operator = current token
-        advance()
-
-        right = parseFactor()
-
-        if operator is MULTIPLY:
-            value = value * right
-        else:
-            if right is 0:
-                error: division by zero
-
-            value = value / right
-
+function parseTerm():  
+    value \= parseFactor()  
+    while current token is MULTIPLY or DIVIDE:  
+        operator \= current token  
+        move to next token  
+        right \= parseFactor()  
+        if operator is MULTIPLY: value \= value \* right  
+        else:  
+            if right is 0: error: division by zero  
+            value \= value / right  
     return value
-```
 
-Example:
+**parseFactor()** (Handles numbers, unary minus, and parentheses)
 
-```text
-5 * 4 / 2
-```
-
-Evaluation:
-
-```text
-5 * 4 = 20
-20 / 2 = 10
-```
-
----
-
-## 7. parseFactor
-
-`parseFactor` handles:
-
-```text
-numbers
-negative numbers
-parentheses
-```
-
-```text
-function parseFactor():
-    token = current token
-
-    if token is NUMBER:
-        advance()
-        return token.value
-
-    if token is MINUS:
-        advance()
-        return -parseFactor()
-
-    if token is LEFT_PAREN:
-        advance()
-
-        value = parseExpression()
-
-        if current token is not RIGHT_PAREN:
-            error: missing closing parenthesis
-
-        advance()
-        return value
-
+function parseFactor():  
+    token \= current token  
+    if token is NUMBER:  
+        move to next token  
+        return token.value  
+    if token is MINUS:  
+        move to next token  
+        return \-parseFactor()  
+    if token is LEFT\_PAREN:  
+        move to next token  
+        value \= parseExpression()  
+        if current token is not RIGHT\_PAREN:  
+            error: missing closing parenthesis  
+        move to next token  
+        return value  
     error: expected number or parenthesis
-```
 
-Examples:
+## **4\. Final Solver**
 
-```text
-5       -> 5
--5      -> -5
-(2 + 3) -> 5
-```
-
----
-
-## 8. Final Solve Function
-
-```text
-function solve(tokens):
-    position = 0
-
-    result = parseExpression()
-
-    if current token is not END:
-        error: unexpected token
-
+function solve(tokens):  
+    current position \= 0  
+    result \= parseExpression()  
+    if current token is not END:  
+        error: unexpected token  
     return result
-```
 
----
+## **5\. Example Walkthrough**
 
-## 9. Full Evaluation Example
+For the expression: ![][image4]
 
-Expression:
+1. **Tokens:** NUMBER(5), MULTIPLY, NUMBER(4), MINUS, LEFT\_PAREN, NUMBER(2), PLUS, NUMBER(3), RIGHT\_PAREN, END  
+2. **parseExpression** calls **parseTerm**:  
+   * parseFactor returns ![][image5]  
+   * Matches MULTIPLY, calls parseFactor (![][image6])  
+   * Result: ![][image7]  
+3. **parseExpression** matches MINUS, calls **parseTerm**:  
+   * parseFactor hits LEFT\_PAREN, calls **parseExpression**:  
+     * Evaluates ![][image8]  
+   * Result: ![][image9]
 
-```text
-5 * 4 - (2 + 3)
-```
+[image1]: <data:image/png;base64,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>
 
-Tokens:
+[image2]: <data:image/png;base64,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>
 
-```text
-NUMBER(5)
-MULTIPLY
-NUMBER(4)
-MINUS
-LEFT_PAREN
-NUMBER(2)
-PLUS
-NUMBER(3)
-RIGHT_PAREN
-END
-```
+[image3]: <data:image/png;base64,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>
 
-Evaluation flow:
+[image4]: <data:image/png;base64,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>
 
-```text
-parseExpression
-    parseTerm
-        parseFactor -> 5
-        sees MULTIPLY
-        parseFactor -> 4
-        result = 5 * 4 = 20
+[image5]: <data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAiCAYAAABmzUjmAAABLUlEQVR4XmNYcfzXf2IwA7oALjyCFS478u3/nB3P/i8/9hMuARKbve0JqkKQgL6RxX9Vdc3/Ns5+/43N7f6rqKr/L2hagKnQwT34f/+KSyimYFgNknT0CMWpCEPhzC2P/vcsPfd/+qb7KO5FUWhsYf/f3Nbtf27d7P+Wdh7/vUNT/8/b/QpVIcjH7gHx/2dsfgAWnLLu1n8tHcP/vuEZYN/DFaLjhfvfg52ipKzyv3PRSYRCkMTcXS/h7oIplJeX/18zcQtE4fw9r/9bO/n819I1BAcPSBAmpqGp+3/CqisIE1NKev9nVE6Bm9g+7yjY2vDkiv9Lkd24YO/b/36RWf9dfWP+l3evAcdKbE7z/8UHP6H6GoRBpoF8W92/CRwKMHEMhYTwqEK8eFgpBAC8ZkkeBNVwnAAAAABJRU5ErkJggg==>
 
-    sees MINUS
+[image6]: <data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAiCAYAAABmzUjmAAAAyElEQVR4XmNYcfzXf2IwA7oALjyqEI5nbnn0P6tq2v+F+9/jVxgUV/hf38ji/+xtT3ArnLjq6n8zGxf8CkFW+UZk/nf0CMWvMLtmxv/Mqqn4FXYvOQM2DWQqToUL9r797xue8b9v+QWwIFaFy4/9/J9RMfl/QfNCuCBWhT1Lz/33CU//P2PLQ7AECNu6+P/XNTD937/i0v+5u17+BxmGETwgDDINw0R0RSCsZ2iGXyFIAqRAXl4ejkHuBYUEVhOx4VGFePHIVAgASv5LMAgC1YQAAAAASUVORK5CYII=>
 
-    parseTerm
-        parseFactor sees LEFT_PAREN
-            parseExpression
-                parseTerm
-                    parseFactor -> 2
+[image7]: <data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFMAAAAjCAYAAADokDbBAAAEP0lEQVR4Xu2X60/OYRjH+0/qiaRISio6kKTIUyZUEpaixGQh6YCaQw6rCCUk5DznOVWMOW7mhcNsNmZm5szYGG8ufa+5f7uf3y96enY/T17cL76r+7rPn991Xff1eB2+/Yu01MjLbNByXRqmQmmYCqVhKpSGqVAapkJpmArFMA/e+E67Lr6mQ7d+Gh2wNZ9/ZZngLtUdeUiLVrdY7J7SwZs/qGbfXb4z/jf3G+O6uDSceEqtVz9b+hgmFggOjSQ//wCKjk+hYRGx1N/Pn4qq9lomuEN7Oz/S6KQpFJc01dLnCW05/oSix9hpfFoO+dhsFDg4hFbvaLeMW9N8jYaGjaTp8yooMjaR/+67+sXod4Dp7e3NChsRxxNlT3WXsEfO4g28b1/AbDr3kkYnptHGA/e4Da8LCY9mqNVNV4xx9UcfU2BQKC3bcIzbuy+/5Q+QVbDS4GTAxIK1hx94NLQhHDghJZu9oS9glmw8zh9yXOpMw5a/fCvbEifNogPXv7ENXjgkJJzhi3GzF61n2/bTz7ltwMRFXAWJDfGleuvJONiEtDmcqxAZfQGzeG0bg4M3Cltlw0W2RcSM43u1dLynqDETeQzeFjFOQC+vP8dtA+awyFE8eWFlM42ITaLkqXm0p/2dZXNZyDUAiM0BAkm59conqmrs4ERtHi+rrO4sh0jbn4fOGZjYq6b1DpXVnnFaq7ZdsqzzL+Hc9vR8hlRU3cq2TW33yW/AQOOOYqyAPjm7iNsME7Th0o1nX7AReQNhh0X/BQVunp5bymDsGQVU1dRJQ0Ij+MOItboT+uCRImT+J5iVWy9wvpyWs8y4e69gmoUJmOjbrz+HoLlfVkbeCt7IZvPlhIzD91RaTMspcUjuzsJ0txBpoeExlF1Y5eBEvYKJAXLOEzDlfPA3ZRWsooEBQeTj40NRcck9wsR6SOY7uwACIoSHL2jocIoZm0otnR8sczwlpLkFFTst5wfkgEHBFpji8ZpXUs9tL9R4qC1hLN18ko3OwkSY46uIMEdtFhgUwoeSXz1ZyENIBbKQUrAXwgsfxzxHyJ1hjvPKY+FcOAvegN2X3lB4VDxHj/xIiwcIUNH2Ei8VIMBDYBQ2eFzd0UeWjYVqu361uPoAyZLDyNwny10w4VCpmYUONpxpyqxifiCxb8bcMhocHEbbTz0zxiDC4LHwXLQ5zHOXbKb80gYjzNftucn5Mn3Ocl7MvLlZ+EKijDD3OSMUzPjF1RNMdwgg45Mz+defHC02334ceWIc4A7wD7QU7TIjhokFUzLnU4J9BrssLpa9oJr2X/tq2bw7uVpnCo9EqAiJZO4pFZY3OuwvS4QvhLstrTnCv4Lml+3g6mesPcuhfDRecwxGSYTQkAtTLUfB8VCJgJXZebotjbRck4apUBqmQmmYCqVhKpSGqVAapkJpmAqlYSqUhqlQGqZCaZgKpWEq1G9hDiC5bR/3qQAAAABJRU5ErkJggg==>
 
-                sees PLUS
+[image8]: <data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAE8AAAAkCAYAAADIB2cfAAADzElEQVR4Xu2X+0tUQRTH9z9xTU0trXykLvnO0jKzUhMlsVJLrCDQfCuVpEjpalpq5jM1EQlTsaxMDHtBBUURBFFE9I6ioKhfTn0H7rI7U1fZcfeHmh8+4D0zdzx+5p4zo2Hw5k9S2IeBDyjmj5IngZIngZIngZIngZIngZIngY28nulP1DD0kMFPdBYD179Tx+Rrap94SR2X3grjzmJg9hudvviKzt74YRNDXtozk4fgrsIGCgqNoS0Z+8k/KIwS0/dS99RHYVFHUj94n0wR61gOe8pbKTAkkqo7Z4V5zgCSlvuHkIenN8snIDic3D08af/hbsscJi+vrIW27ixiEvGM3XdxcaG4zTvozMwXYWE9WkafUUXThBCfC3xtpvA4yjlgtuTRfO4JLfH1o8ahR8J8R6PJgwcQaIqiI+0zNl+ioevKe1oVvYFcF7lRZfNFy8DyABMZjUaqOjUtLKzHsf57lLarXIjPBd7zWOzFwM+IoY0gceu8nAXkRcYmkXnwAXVNfRDGgQF9JThsLUsSpaINRMWlsFh+zYDwkh72ykOLSM0uYWjtom38BS1yc6fa3tvCfEcDeXBg3eN4WNm2jj2nqrarNiWKrxHyDrVcFl7So6brBmsBfNweSutHfq9VaCljZ6LJwwaiDaEdWZcs+OtVBTuOAwS9iB/TAyWGBsvH50vv9Gc6eGKSsgvqaLHXUvbMz+HpmHzD/sAy8+i84dfggbyAkAhWlUVHh1k/jk/Joc7L7yxz/igPvcbL25eO9t0RxuZCVh6Sq2y6QPnV/RQWk8h2np/D4wh5uKbEbspkVYlndnj5+FFCaq6lEgR5GMjOr2PXBn7MGnzCtT23hKQy9x2hyLhkIQ7wRfHr6IF+bO8mLjT4oFDG1j3YRh6E5JY0U2h0gvAyjzPkAfTd9UlZ1HftqzDmSCALm6f1OU0e8ilvHGcxizwE0ndXWA4NvISTDwcAv7Ae9pQt+trq+DSWGBJEotoYYigfPXkLXbba9Q13TFxVrGOoBO0/MCavrGGM3fN8VqykZf7BDNQ3nk+OPBUW18MeeSC3uIn9TlxEtRj6jtHVlfVAfr6jwYGFKtS+vJrO66xkU7OKqV/reUjQLyiU7TAPTMM4v7Ae9srD15e8vYDd5HcXNbITDu0D1xX+iuAMcNfcmJZHaxK2sYrEv2YZe6tsrnPCgSGLvfI0sJlYA6V1rO+uMO5MsGk4ZZEP8uLHF1ze8eHHVGo+L8T/RRZc3v+EkieBkieBkieBkieBkieBkieBkieBkieBkieBkieBkieBkifBLy/cx7yKrUxYAAAAAElFTkSuQmCC>
 
-                parseTerm
-                    parseFactor -> 3
-
-                result = 2 + 3 = 5
-
-    result = 20 - 5 = 15
-```
-
-Final result:
-
-```text
-15
-```
-
----
-
-## 10. Error Handling
-
-The evaluator should detect these errors:
-
-```text
-invalid character
-missing closing parenthesis
-unexpected token
-division by zero
-expected number or parenthesis
-unexpected token after expression
-```
-
-Examples:
-
-```text
-5 + * 3      -> unexpected token
-(2 + 3       -> missing closing parenthesis
-10 / 0       -> division by zero
-2 + abc      -> invalid character
-```
-
----
-
-## 11. Key Idea
-
-The parser structure controls operator precedence:
-
-```text
-parseExpression calls parseTerm
-parseTerm calls parseFactor
-parseFactor can call parseExpression again inside parentheses
-```
-
-Because `parseTerm` is evaluated before `parseExpression` continues with `+` or `-`, multiplication and division naturally happen before addition and subtraction.
-
+[image9]: <data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGIAAAAkCAYAAABypO9/AAAEBklEQVR4Xu2Y6W9NQRjG73/SKtVqSnXRKrW2tInWGkqR2kpDUUtVdUkoSiwtGm1VlSpKBKGqlmpqjQQJkUgkQqyxhZBI+PLyvMncnDtz72lF77nzYT78cu68Z+6Z55znzDvvHFfL3d9kCDwuOWAIDMYITTBGaIIxQhOMEZpgjNAEY4QmeBhxpPMrVZ16wke5o+DEnV/UcPk9bW+6x0f5vL85fusnHWx/xzqssfq2N0pfp6lrfUVNnd+UeE80sxEILl5XRfFJKTR1bj4FBQXRpKw8OtzxxeOC9ZfeUkp6FqVkzKaC7Sdp4qylVH3mmTKwP4H4qJihFBo2gJKSJ7LefqFhlL/psNLXKfD8ZuZsoIiB0bTz2EPlvKw5NmGkopmNWFpcQzMWFPIF0c4pqGQz0qbMp6Nd3zmGI9oZmbnufnAY5jk5M8RNQZ9gS32Xx9vmJPnlR2hQTALFD0+m0P7htkYIvXGJYxTNrsZrn2j42HTqE9KXyqrbOVh38TVFxSZScHAwlR/o5BiOaJfsafUYJKRvPyradVYZ3F/gpkanTqPKlsf8u7Hjs9InEGBm2hlh1SyfB66GKx8oYcR4dmpZSS0HsUaMSZvOsTUVxzk2b+U2bm+suepxAQyONObUG4kbgTZfNxQoujOiO82cmmovvKTyuuvuNCRmiXjwx/6movQZi70O1D8sggexW+B7E3FTWBihpXRfm2MvgR09MUJorjn/QtHstXytOHSbU47I/2KGeBsIuQ/Yud2bYJzYoaN4Fi8vq6fCHadpwvQcOnT1o9JXBi9cceX5HoP+8jV80Z0RVs2JI9MUzV6NQFUUPmAg7Wi+z22djEAZmDo52+MhRURGexQRvgiUEbJmVJqyZsUInMBCvbvlkTv2P0YgrW1tuKncpC/QF/+Rr2MHtGEGY28jn3MKOyNkxPO0avYwAnkrt6iac5g13nzjBzvqbaDIqDiuCHytEb1tBMZBgWHNsaKwkCs6J7EzQtZsLYaEZrcRCGQtKXUv2PhT5qIiqmi8w+1Ntde4fEVOtg6C2KrNTcrg/kAUEdg4oRQUccSQSvFVQP6PlUCkJm+aRcyqmY0orrrA+4jIwUN4cwKQw9Def+45dxQuyhs6bE5QDcjC/MWitbt41lpnBKZ45sL1tjPJ36CEx25ZrKtWZM2iGLJqdmEhiY5Pcu/6rMA1uCcuuPf0UxoybCxNy17Nb0z2iq2O52V8dsGnlXEZc3h2YhbPzSt3z2SnwSZYfm7AWtLLmmGYrFlZrLsDs2Fn8wM2oqLxtnLeCfBmofKABvE1QHesmvHyy+f/2QiDfzBGaIIxQhOMEZpgjNAEY4QmGCM0wRihCcYITTBGaIIxQhOMEZpgjNAEY4Qm/AFYfmqPO6witAAAAABJRU5ErkJggg==>
