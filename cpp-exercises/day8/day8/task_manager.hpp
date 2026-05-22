@@ -17,21 +17,25 @@ class TaskManager {
 	std::string m_file_name;
 	size_t m_last_done_index{};
 
-	std::vector<parse_argument> ParseInput(const std::string&);
-	void PrintHelp();
-public:
-	TaskManager() = default;
-	~TaskManager() = default;
+	std::vector<std::string> Tokenize(const std::string&);
+	std::vector<std::string> ParseInput(const std::string&);
 	void List(bool);
-	bool Load(const std::string&);
+	
 	bool Save();
-	void AddTask(std::string&);
+	int SearchForTask(const std::string&,int option);
+	void AddTask(const std::string&);
 	int RmTask(const std::string&);
 	bool RmTask(int);
 	int Done(const std::string&);
 	bool Done(int);
-	int Run();
+	void PrintHelp();
 	void Clear();
+public:
+	TaskManager() = default;
+	~TaskManager() = default;
+	bool Load(const std::string&);
+	int Run();
+	
 };
 
 
